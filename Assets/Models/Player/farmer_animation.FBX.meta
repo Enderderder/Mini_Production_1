@@ -1,0 +1,301 @@
+fileFormatVersion: 2
+guid: dcc5cf41ceb095e44bba095854aff86c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Erin
+    100002: Erin_Body
+    100004: Erin_Head
+    100006: Erin_Hips
+    100008: Erin_Left_Clavical
+    100010: Erin_Left_Elbow
+    100012: Erin_Left_Hand
+    100014: Erin_Left_Knee
+    100016: Erin_Left_Mit
+    100018: Erin_Left_Shoulder
+    100020: Erin_Left_Thigh
+    100022: Erin_Left_Thumb
+    100024: Erin_Left_Toe
+    100026: Erin_Neck_Base
+    100028: Erin_Right_Clavival
+    100030: Erin_Right_Elbow
+    100032: Erin_Right_Hand
+    100034: Erin_Right_Knee
+    100036: Erin_Right_Mit
+    100038: Erin_Right_Shoulder
+    100040: Erin_Right_Thigh
+    100042: Erin_Right_Thumb
+    100044: Erin_Right_Toe
+    100046: Erin_Root
+    100048: Erin_Shirt
+    100050: Erin_Spine_1
+    100052: Erin_Spine_2
+    100054: //RootNode
+    100056: Hait3
+    100058: Hat
+    100060: Hat2
+    100062: Hat_Root
+    100064: Head
+    100066: scythe
+    100068: scythe bone
+    400000: Erin
+    400002: Erin_Body
+    400004: Erin_Head
+    400006: Erin_Hips
+    400008: Erin_Left_Clavical
+    400010: Erin_Left_Elbow
+    400012: Erin_Left_Hand
+    400014: Erin_Left_Knee
+    400016: Erin_Left_Mit
+    400018: Erin_Left_Shoulder
+    400020: Erin_Left_Thigh
+    400022: Erin_Left_Thumb
+    400024: Erin_Left_Toe
+    400026: Erin_Neck_Base
+    400028: Erin_Right_Clavival
+    400030: Erin_Right_Elbow
+    400032: Erin_Right_Hand
+    400034: Erin_Right_Knee
+    400036: Erin_Right_Mit
+    400038: Erin_Right_Shoulder
+    400040: Erin_Right_Thigh
+    400042: Erin_Right_Thumb
+    400044: Erin_Right_Toe
+    400046: Erin_Root
+    400048: Erin_Shirt
+    400050: Erin_Spine_1
+    400052: Erin_Spine_2
+    400054: //RootNode
+    400056: Hait3
+    400058: Hat
+    400060: Hat2
+    400062: Hat_Root
+    400064: Head
+    400066: scythe
+    400068: scythe bone
+    2100000: lambert2
+    2100002: lambert3
+    2100004: Material
+    4300000: Erin_Body
+    4300002: Head
+    4300004: Hat
+    4300006: scythe
+    7400000: Idle
+    7400002: Running
+    7400004: Attack
+    7400006: Death
+    9500000: //RootNode
+    13700000: Erin_Body
+    13700002: Hat
+    13700004: Head
+    13700006: scythe
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 49304118607248c46917336b951fb3a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 355596a76bc90d24a83b9efcd49e0778, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3
+    second: {fileID: 2100000, guid: 355596a76bc90d24a83b9efcd49e0778, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 5
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 1
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Running
+      takeName: Take 001
+      firstFrame: 36
+      lastFrame: 66
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 67
+      lastFrame: 92
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 93
+      lastFrame: 123
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
