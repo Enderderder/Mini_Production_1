@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
+using UnityEngine.Rendering.PostProcessing;
 
 public class EnemyMovement : MonoBehaviour, IKillable
 {
@@ -25,6 +27,7 @@ public class EnemyMovement : MonoBehaviour, IKillable
     public Animator anim;
     public SkinnedMeshRenderer meshren;
 
+    public ParticleSystem deathparticle;
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -69,7 +72,7 @@ public class EnemyMovement : MonoBehaviour, IKillable
             }
             else
             {
-                agent.SetDestination(this.transform.position);
+                //agent.SetDestination(this.transform.position);
             }
         }
     }
@@ -150,6 +153,21 @@ public class EnemyMovement : MonoBehaviour, IKillable
         agent.SetDestination(this.transform.position);
         anim.SetBool("Death", true);
 
+        Instantiate(deathparticle,transform.position,Quaternion.identity);
+        // Shake Camera
+        Camera.main.DOKill(true);
+        Camera.main.DOShakePosition(0.15f, 0.5f, 40);
+        Camera.main.DOFieldOfView(50f, 0.2f).From();
+
+        TweenPost();
+    }
+
+    public PostProcessVolume PostVol;
+
+    void TweenPost()
+    {
+        DOTween.To( () => PostVol.weight, x => PostVol.weight = x, 1f, 0.1f );
+        DOTween.To(() => PostVol.weight, x => PostVol.weight = x, 0, 0.2f).SetDelay(0.1f);
     }
 
     public void DoneDeath()
