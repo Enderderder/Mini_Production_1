@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 223ae4d057a5ae640b4b7b23eb4255d0
+guid: a744b2a44af1f704ca6cc6c1ff6e7d62
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: joint1
-    100004: joint2
-    100006: joint3
-    100008: joint4
-    100010: joint5
-    100012: joint6
-    100014: joint7
-    100016: joint8
-    100018: joint9
-    100020: polySurface1
-    100022: polySurface10
-    100024: polySurface11
-    100026: polySurface12
-    100028: polySurface13
-    100030: polySurface14
-    100032: polySurface15
-    100034: polySurface16
-    100036: polySurface2
-    100038: polySurface3
-    100040: polySurface4
-    100042: polySurface5
-    100044: polySurface6
-    100046: polySurface7
-    100048: polySurface8
-    100050: polySurface9
+    100000: joint1
+    100002: joint2
+    100004: joint3
+    100006: joint4
+    100008: joint5
+    100010: joint6
+    100012: joint7
+    100014: joint8
+    100016: joint9
+    100018: polySurface1
+    100020: polySurface10
+    100022: polySurface11
+    100024: polySurface12
+    100026: polySurface13
+    100028: polySurface14
+    100030: polySurface15
+    100032: polySurface16
+    100034: polySurface2
+    100036: polySurface3
+    100038: polySurface4
+    100040: polySurface5
+    100042: polySurface6
+    100044: polySurface7
+    100046: polySurface8
+    100048: polySurface9
+    100050: //RootNode
     100052: Rocks_low
     100054: transform1
     100056: transform2
@@ -37,32 +37,32 @@ ModelImporter:
     100062: transform5
     100064: transform6
     100066: transform7
-    400000: //RootNode
-    400002: joint1
-    400004: joint2
-    400006: joint3
-    400008: joint4
-    400010: joint5
-    400012: joint6
-    400014: joint7
-    400016: joint8
-    400018: joint9
-    400020: polySurface1
-    400022: polySurface10
-    400024: polySurface11
-    400026: polySurface12
-    400028: polySurface13
-    400030: polySurface14
-    400032: polySurface15
-    400034: polySurface16
-    400036: polySurface2
-    400038: polySurface3
-    400040: polySurface4
-    400042: polySurface5
-    400044: polySurface6
-    400046: polySurface7
-    400048: polySurface8
-    400050: polySurface9
+    400000: joint1
+    400002: joint2
+    400004: joint3
+    400006: joint4
+    400008: joint5
+    400010: joint6
+    400012: joint7
+    400014: joint8
+    400016: joint9
+    400018: polySurface1
+    400020: polySurface10
+    400022: polySurface11
+    400024: polySurface12
+    400026: polySurface13
+    400028: polySurface14
+    400030: polySurface15
+    400032: polySurface16
+    400034: polySurface2
+    400036: polySurface3
+    400038: polySurface4
+    400040: polySurface5
+    400042: polySurface6
+    400044: polySurface7
+    400046: polySurface8
+    400048: polySurface9
+    400050: //RootNode
     400052: Rocks_low
     400054: transform1
     400056: transform2
@@ -128,12 +128,12 @@ ModelImporter:
     - serializedVersion: 16
       name: Take 001
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 24
+      firstFrame: 1
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
-      cycleOffset: 5
+      cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
