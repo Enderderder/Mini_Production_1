@@ -138,13 +138,13 @@ public class Player : MonoBehaviour, IKillable
         Ray attackRay = new Ray(this.transform.position, this.transform.forward);
 
         RaycastHit[] raycastHits;
-        // Cast out the ray as a sphere shape in the attack range
+        // Cast out the raysa as a sphere shape in the attack range
         raycastHits = 
             Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
         Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
         m_animator.SetBool("IsAttacking", true);
-        yield return new WaitForSeconds(0.5f);
+        
         foreach (RaycastHit hitResult in raycastHits)
         {
             Debug.Log("Hit: " + hitResult.transform.gameObject.name);
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour, IKillable
                 }
             }
         }
-        //yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);
         m_animator.SetBool("IsAttacking", false);
         m_canLightAttack = true;
     }
