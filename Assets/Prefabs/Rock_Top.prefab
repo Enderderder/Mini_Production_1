@@ -356,6 +356,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   CurrHealth: 0
+  brokenRock: {fileID: 1387113456888108, guid: 3c3967a0bf4d56f41ae34642e7fcfee7, type: 2}
+  Ore: {fileID: 100000, guid: 9328b98febc603a409918075cad08749, type: 3}
 --- !u!222 &222425796025791032
 CanvasRenderer:
   m_ObjectHideFlags: 1
