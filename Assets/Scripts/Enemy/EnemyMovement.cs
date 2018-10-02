@@ -156,7 +156,7 @@ public class EnemyMovement : MonoBehaviour, IKillable
         Instantiate(deathparticle,transform.position,Quaternion.identity);
         // Shake Camera
         Camera.main.DOKill(true);
-        Camera.main.DOShakePosition(0.15f, 0.5f, 40);
+        Camera.main.DOShakePosition(0.1f, 0.5f, 40);
         Camera.main.DOFieldOfView(50f, 0.2f).From();
 
         TweenPost();
