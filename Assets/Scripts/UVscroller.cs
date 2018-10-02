@@ -3,7 +3,8 @@ using System.Collections;
 
 public class UVscroller : MonoBehaviour
 {
-    public float scrollSpeed = 0.5F;
+    public float scrollSpeedX = 0.5f;
+    public float scrollSpeedY = 0.0f;
     public Renderer rend;
     void Start()
     {
@@ -11,7 +12,8 @@ public class UVscroller : MonoBehaviour
     }
     void Update()
     {
-        float offset = Time.time * scrollSpeed;
-        rend.material.SetTextureOffset("_MainTex", new Vector2(offset, 0));
+        float offsetX = Time.time * scrollSpeedX;
+        float offsetY = Time.time * scrollSpeedY;
+        rend.material.SetTextureOffset("_MainTex", new Vector2(offsetX, offsetY));
     }
 }
