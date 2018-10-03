@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class Slot : MonoBehaviour, IPointerClickHandler
 {
@@ -108,6 +109,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
 
         ChangeSprite(item.spriteNeutral, item.spriteHighlighted); //Changes the sprite so that it reflects the item the slot is occupied by
+        transform.DOPunchScale(new Vector3(0.2f, 0.2f, 0), 0.4f);
     }
 
     /// <summary>
