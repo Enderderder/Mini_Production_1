@@ -27,6 +27,8 @@ public class EnemyMovement : MonoBehaviour, IKillable
     public Animator anim;
     public SkinnedMeshRenderer meshren;
 
+    public GameObject blackGem;
+
     public ParticleSystem deathparticle;
     void Awake()
     {
@@ -153,13 +155,24 @@ public class EnemyMovement : MonoBehaviour, IKillable
         agent.SetDestination(this.transform.position);
         anim.SetBool("Death", true);
 
-        Instantiate(deathparticle,transform.position,Quaternion.identity);
+        StartCoroutine(DeathTimer());
+    }
+
+    IEnumerator DeathTimer()
+    {
+        yield return new WaitForSeconds(1);
+
+        Instantiate(deathparticle, transform.position, Quaternion.identity);
         // Shake Camera
         Camera.main.DOKill(true);
         Camera.main.DOShakePosition(0.1f, 0.5f, 40);
         Camera.main.DOFieldOfView(50f, 0.2f).From();
 
+        Instantiate(blackGem, transform.position, transform.rotation);
+
         TweenPost();
+
+        Destroy(gameObject);
     }
 
     public PostProcessVolume PostVol;

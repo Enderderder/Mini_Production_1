@@ -85,8 +85,6 @@ GameObject:
   - component: {fileID: 65705777847599070}
   - component: {fileID: 114191749739364808}
   - component: {fileID: 195723494902202292}
-  - component: {fileID: 114314520071717210}
-  - component: {fileID: 114741048077944054}
   - component: {fileID: 114850243624435686}
   m_Layer: 0
   m_Name: hornbillEnemy
@@ -408,52 +406,9 @@ MonoBehaviour:
   damagingplayer: 0
   anim: {fileID: 95471280328089112}
   meshren: {fileID: 137073030644433008}
+  blackGem: {fileID: 1638029466058278, guid: 45d181fe834046b48aee6137c9968fb9, type: 2}
   deathparticle: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 2}
   PostVol: {fileID: 0}
---- !u!114 &114314520071717210
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1399241244981666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de1a1417df3f6374e9198ca1adebdaaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
-  quality: 0
-  spriteNeutral: {fileID: 21300000, guid: 1024a7ce5426a134db195813eab41adf, type: 3}
-  spriteHighlighted: {fileID: 21300000, guid: f6ac8da45d5394e4f8174edb511d6ab5, type: 3}
-  maxSize: 10
-  strength: 0
-  intellect: 0
-  agility: 0
-  stamina: 0
-  itemName: Health potion
-  description: 'Use: Restore an amount of health'
---- !u!114 &114741048077944054
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1399241244981666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de1a1417df3f6374e9198ca1adebdaaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
-  quality: 3
-  spriteNeutral: {fileID: 21300000, guid: e893575fc48ff5e4784a70580bc902f0, type: 3}
-  spriteHighlighted: {fileID: 21300000, guid: cb1118a521eeb4c49b105f292affc45d, type: 3}
-  maxSize: 100
-  strength: 0
-  intellect: 0
-  agility: 0
-  stamina: 0
-  itemName: Black Stone
-  description: 'Use: Increase Your Def'
 --- !u!114 &114850243624435686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -466,8 +421,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 114314520071717210}
-  - {fileID: 114741048077944054}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!135 &135003765177454642
 SphereCollider:
   m_ObjectHideFlags: 1
