@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1863770474063840}
   m_LocalRotation: {x: 0.042338464, y: -0, z: -0, w: 0.99910337}
-  m_LocalPosition: {x: -19.02, y: -0.13, z: -11.95}
+  m_LocalPosition: {x: 49.51033, y: -18.98583, z: 28.489342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -135,3 +135,4 @@ MonoBehaviour:
   CurrHealth: 0
   brokenRock: {fileID: 1387113456888108, guid: 3c3967a0bf4d56f41ae34642e7fcfee7, type: 2}
   Ore: {fileID: 1181896201221486, guid: 64c2090a081b4b54dbb480a3c4d98358, type: 2}
+  Break: {fileID: 0}

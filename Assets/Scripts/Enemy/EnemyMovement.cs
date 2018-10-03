@@ -30,6 +30,9 @@ public class EnemyMovement : MonoBehaviour, IKillable
     public GameObject blackGem;
 
     public ParticleSystem deathparticle;
+    public AudioSource Boom;
+
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -168,11 +171,15 @@ public class EnemyMovement : MonoBehaviour, IKillable
         Camera.main.DOShakePosition(0.1f, 0.5f, 40);
         Camera.main.DOFieldOfView(50f, 0.2f).From();
 
+        Boom.Play();
+
         Instantiate(blackGem, transform.position, transform.rotation);
 
         TweenPost();
 
         Destroy(gameObject);
+
+
     }
 
     public PostProcessVolume PostVol;

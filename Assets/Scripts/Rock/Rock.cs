@@ -13,9 +13,9 @@ public class Rock : MonoBehaviour
 
     public GameObject brokenRock;
     public GameObject Ore;
+    public AudioSource Break;
 
-
-	void Start ()
+    void Start ()
     {
         // Set to full health at the beginning
         CurrHealth = TotalHealth;
@@ -52,6 +52,8 @@ public class Rock : MonoBehaviour
             Camera.main.DOShakePosition(0.15f, 0.5f, 40);
 
             GameObject Gem = Instantiate(Ore, transform.position + new Vector3(0.25f, 1, 0), transform.rotation);
+
+            Break.Play();
 
             return false;
         }

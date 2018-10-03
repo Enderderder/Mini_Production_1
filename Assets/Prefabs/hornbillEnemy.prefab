@@ -408,6 +408,7 @@ MonoBehaviour:
   meshren: {fileID: 137073030644433008}
   blackGem: {fileID: 1638029466058278, guid: 45d181fe834046b48aee6137c9968fb9, type: 2}
   deathparticle: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 2}
+  Boom: {fileID: 0}
   PostVol: {fileID: 0}
 --- !u!114 &114850243624435686
 MonoBehaviour:

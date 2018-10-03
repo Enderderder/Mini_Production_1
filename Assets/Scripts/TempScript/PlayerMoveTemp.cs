@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerMoveTemp : MonoBehaviour
 {
 	public float MoveSpeed = 5f;
+    public AudioSource Walk;
 
-	private Rigidbody m_rigidBody;
+    private Rigidbody m_rigidBody;
     private Ray rotationRay;
     private Animator anim;
 
@@ -40,12 +41,14 @@ public class PlayerMoveTemp : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
 		float verticalInput = Input.GetAxisRaw("Vertical");
 		Vector3 inputVec = new Vector3(horizontalInput, 0f, verticalInput);
 
-		// Process Movement
-		if (inputVec.magnitude != 0 && inputVec.magnitude < MoveSpeed)
+
+
+        // Process Movement
+        if (inputVec.magnitude != 0 && inputVec.magnitude < MoveSpeed)
 		{
             anim.SetBool("Run", true);
 			m_rigidBody.velocity = 

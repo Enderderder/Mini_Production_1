@@ -21,6 +21,9 @@ public class Player : MonoBehaviour, IKillable
     public bool novillager = false;
     [Header("Config")]
     public LayerMask AttackingLayer;
+    public AudioSource Slash;
+    public AudioSource Sweep;
+    public AudioSource Pickup;
 
     // Behaviour Flags ==============
     private bool m_canLightAttack;
@@ -145,6 +148,8 @@ public class Player : MonoBehaviour, IKillable
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item") //If we collide with an item that we can pick up
+            Pickup.Play();
+
         {
             inventory.AddItem(other.GetComponent<Item>()); //Adds the item to the inventory.
             Destroy(other.gameObject);
@@ -176,7 +181,8 @@ public class Player : MonoBehaviour, IKillable
         Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
         m_animator.SetBool("Attack", true);
-        
+        Slash.Play();
+
         foreach (RaycastHit hitResult in raycastHits)
         {
             Debug.Log("Hit: " + hitResult.transform.gameObject.name);
@@ -211,6 +217,7 @@ public class Player : MonoBehaviour, IKillable
         Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
         m_animator.SetBool("BigAttack", true);
+        Sweep.Play();
 
         foreach (RaycastHit hitResult in raycastHits)
         {
