@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IKillable
 
     // Behaviour Flags ==============
     private bool m_canLightAttack;
+    private bool m_canBigAttack;
 
     // Animation Control ============
     private Animator m_animator;
@@ -59,13 +60,13 @@ public class Player : MonoBehaviour, IKillable
 		// Reference the stats panel UI
 		m_statsCanvas = 
 			transform.Find("PlayerUICanvas/StatsPanelCanvas").gameObject;
-		atkLabel = m_statsCanvas.transform.
-			Find("AttackValue").gameObject.GetComponent<TextMeshProUGUI>();
-		defLabel = m_statsCanvas.transform.
-			Find("DeffendValue").gameObject.GetComponent<TextMeshProUGUI>();
-		spdLabel = m_statsCanvas.transform.
-			Find("SpeedValue").gameObject.GetComponent<TextMeshProUGUI>();
-	}
+        atkLabel = m_statsCanvas.transform.
+            Find("AttackValue").gameObject.GetComponent<TextMeshProUGUI>();
+        defLabel = m_statsCanvas.transform.
+            Find("DeffendValue").gameObject.GetComponent<TextMeshProUGUI>();
+        spdLabel = m_statsCanvas.transform.
+            Find("SpeedValue").gameObject.GetComponent<TextMeshProUGUI>();
+    }
 	void Start()
 	{
         // Set the health to full health
@@ -77,8 +78,10 @@ public class Player : MonoBehaviour, IKillable
 
         // Flag set to default
         m_canLightAttack = true;
+        m_canBigAttack = true;
         killCount = 0;
     }
+
 	void Update()
 	{
 
@@ -110,6 +113,15 @@ public class Player : MonoBehaviour, IKillable
                 StartCoroutine(LightAttack());
             }
         }
+        if (Input.GetButtonDown("BigAttack"))
+        {
+            if (m_canBigAttack)
+            {
+                StartCoroutine(BigAttack());
+            }
+        }
+
+
 	}
     private void OnTriggerEnter(Collider other)
     {
@@ -143,7 +155,7 @@ public class Player : MonoBehaviour, IKillable
             Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
         Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
-        m_animator.SetBool("IsAttacking", true);
+        m_animator.SetBool("Attack", true);
         
         foreach (RaycastHit hitResult in raycastHits)
         {
@@ -160,7 +172,17 @@ public class Player : MonoBehaviour, IKillable
             }
         }
         yield return new WaitForSeconds(0.5f);
-        m_animator.SetBool("IsAttacking", false);
+        m_animator.SetBool("Attack", false);
+        m_canLightAttack = true;
+    }
+    private IEnumerator BigAttack()
+    {
+        m_canLightAttack = false;
+
+        m_animator.SetBool("BigAttack", true);
+
+        yield return new WaitForSeconds(1.0f);
+        m_animator.SetBool("BigAttack", false);
         m_canLightAttack = true;
     }
     public void UpdateHealthBar()
