@@ -109,20 +109,20 @@ public class Player : MonoBehaviour, IKillable
 
         if (Input.GetButtonDown("Attack"))
         {
-            if (m_canLightAttack)
+            if (m_canLightAttack && m_canBigAttack)
             {
                 StartCoroutine(LightAttack());
             }
         }
         if (Input.GetButtonDown("BigAttack"))
         {
-            if (m_canBigAttack)
+            if (m_canBigAttack && m_canLightAttack)
             {
                 StartCoroutine(BigAttack());
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && m_canBigAttack && m_canLightAttack)
         {
             // Shoot out a ray infront of the player
             Ray attackRay = new Ray(this.transform.position, this.transform.forward);
@@ -164,6 +164,7 @@ public class Player : MonoBehaviour, IKillable
     {
         // Make light attack on CD
         m_canLightAttack = false;
+        m_canBigAttack = false;
 
         // Shoot out a ray infront of the player
         Ray attackRay = new Ray(this.transform.position, this.transform.forward);
@@ -193,10 +194,12 @@ public class Player : MonoBehaviour, IKillable
         yield return new WaitForSeconds(0.5f);
         m_animator.SetBool("Attack", false);
         m_canLightAttack = true;
+        m_canBigAttack = true;
     }
     private IEnumerator BigAttack()
     {
         m_canLightAttack = false;
+        m_canBigAttack = false;
 
         // Shoot out a ray infront of the player
         Ray attackRay = new Ray(this.transform.position, this.transform.forward);
@@ -227,6 +230,7 @@ public class Player : MonoBehaviour, IKillable
         yield return new WaitForSeconds(1.0f);
         m_animator.SetBool("BigAttack", false);
         m_canLightAttack = true;
+        m_canBigAttack = true;
     }
 
     private IEnumerator MineRock(GameObject _rock)
