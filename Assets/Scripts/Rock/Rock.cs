@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class Rock : MonoBehaviour, IKillable
+public class Rock : MonoBehaviour
 {
     [Header("Stats")]
     public float TotalHealth = 1f;
@@ -14,23 +14,11 @@ public class Rock : MonoBehaviour, IKillable
     public GameObject brokenRock;
     public GameObject Ore;
 
-    // Healthbar UI
-    private Canvas healthbarCanvas;
-    private Slider healthbar;
-
 
 	void Start ()
     {
         // Set to full health at the beginning
         CurrHealth = TotalHealth;
-        healthbarCanvas = GetComponentInChildren<Canvas>();
-        healthbar = healthbarCanvas.GetComponentInChildren<Slider>();
-        healthbar.maxValue = TotalHealth;
-    }
-
-    void Update()
-    {
-        healthbar.value = CurrHealth;
     }
 
     /* Interface Implementation =================================*/

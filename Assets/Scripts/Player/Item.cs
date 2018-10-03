@@ -67,7 +67,7 @@ public class Item : MonoBehaviour
                 break;
 
             case ItemType.BlueStone:
-                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().AttackDmg++;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().lightAttackDmg++;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UpdateStatsPanel();
                 break;
         }

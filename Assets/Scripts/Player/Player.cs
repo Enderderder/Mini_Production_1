@@ -10,7 +10,8 @@ public class Player : MonoBehaviour, IKillable
 	[Header("Player Stat")]
 	public float TotalHealth = 100f;
 	public float CurrHealth;
-	public float AttackDmg = 50f;
+	public float lightAttackDmg = 50f;
+    public float heavyAttackDmg = 80f;
 	public float Deffence = 50f;
 	public float Speed = 300f;
     public float AttackRange = 3f;
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour, IKillable
             darkaura = true;
         }
 
-        if (AttackDmg >= 60)
+        if (lightAttackDmg >= 60)
         {
             novillager = true;
         }
@@ -121,8 +122,26 @@ public class Player : MonoBehaviour, IKillable
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Shoot out a ray infront of the player
+            Ray attackRay = new Ray(this.transform.position, this.transform.forward);
 
-	}
+            RaycastHit[] raycastHits;
+            // Cast out the raysa as a sphere shape in the attack range
+            raycastHits =
+                Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
+            Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
+
+            foreach (RaycastHit hitResult in raycastHits)
+            {
+                if (hitResult.transform.tag == "Rock")
+                {
+                    StartCoroutine(MineRock(hitResult.transform.gameObject));
+                }
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item") //If we collide with an item that we can pick up
@@ -164,7 +183,7 @@ public class Player : MonoBehaviour, IKillable
             IKillable killableObj = hitResult.transform.GetComponent<IKillable>();
             if (killableObj != null)
             {
-                killableObj.TakeDamage(AttackDmg);
+                killableObj.TakeDamage(lightAttackDmg);
                 if (hitResult.transform.tag == "Enemy")
                 {
                     killCount++;
@@ -179,12 +198,52 @@ public class Player : MonoBehaviour, IKillable
     {
         m_canLightAttack = false;
 
+        // Shoot out a ray infront of the player
+        Ray attackRay = new Ray(this.transform.position, this.transform.forward);
+
+        RaycastHit[] raycastHits;
+        // Cast out the raysa as a sphere shape in the attack range
+        raycastHits =
+            Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
+        Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
+
         m_animator.SetBool("BigAttack", true);
+
+        foreach (RaycastHit hitResult in raycastHits)
+        {
+            Debug.Log("Hit: " + hitResult.transform.gameObject.name);
+            // Do whatever the other object needs to be react
+            IKillable killableObj = hitResult.transform.GetComponent<IKillable>();
+            if (killableObj != null)
+            {
+                killableObj.TakeDamage(heavyAttackDmg);
+                if (hitResult.transform.tag == "Enemy")
+                {
+                    killCount++;
+                }
+            }
+        }
 
         yield return new WaitForSeconds(1.0f);
         m_animator.SetBool("BigAttack", false);
         m_canLightAttack = true;
     }
+
+    private IEnumerator MineRock(GameObject _rock)
+    {
+        GetComponent<PlayerMoveTemp>().enabled = false;
+        m_canLightAttack = false;
+        m_canBigAttack = false;
+        transform.eulerAngles.Set(0, 0, 0);
+        m_animator.SetBool("Mine", true);
+        yield return new WaitForSeconds(0.65f);
+        _rock.GetComponent<Rock>().TakeDamage(1);
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<PlayerMoveTemp>().enabled = true;
+        m_canLightAttack = true;
+        m_canBigAttack = true;
+    }
+
     public void UpdateHealthBar()
 	{
 		// Set the health bar to current health by percentage
@@ -204,7 +263,7 @@ public class Player : MonoBehaviour, IKillable
 	}
 	public void UpdateStatsPanel()
 	{
-		atkLabel.SetText(AttackDmg.ToString());
+		atkLabel.SetText(lightAttackDmg.ToString());
 		defLabel.SetText(Deffence.ToString());
 		spdLabel.SetText(Speed.ToString());
 	}

@@ -47,13 +47,13 @@ public class PlayerMoveTemp : MonoBehaviour
 		// Process Movement
 		if (inputVec.magnitude != 0 && inputVec.magnitude < MoveSpeed)
 		{
-            anim.SetBool("IsRunning", true);
+            anim.SetBool("Run", true);
 			m_rigidBody.velocity = 
 				inputVec.normalized * MoveSpeed * Time.fixedDeltaTime;
 		}
         else
         {
-            anim.SetBool("IsRunning", false);
+            anim.SetBool("Run", false);
         }
 	}
 }
