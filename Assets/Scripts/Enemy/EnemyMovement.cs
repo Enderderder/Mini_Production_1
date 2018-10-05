@@ -153,6 +153,7 @@ public class EnemyMovement : MonoBehaviour, IKillable
     }
     public void KillEntity()
     {
+        GetComponent<BoxCollider>().enabled = false;
         anim.SetBool("Attack", false);
         StopAllCoroutines();
         agent.SetDestination(this.transform.position);
