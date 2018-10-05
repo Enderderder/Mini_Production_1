@@ -182,6 +182,7 @@ public class Player : MonoBehaviour, IKillable
 
         m_animator.SetBool("Attack", true);
         Slash.Play();
+        Slash.pitch = Random.Range(1.6f, 2.4f);
 
         foreach (RaycastHit hitResult in raycastHits)
         {
@@ -218,6 +219,7 @@ public class Player : MonoBehaviour, IKillable
 
         m_animator.SetBool("BigAttack", true);
         Sweep.Play();
+        Sweep.pitch = Random.Range(0.86f, 1.16f);
 
         foreach (RaycastHit hitResult in raycastHits)
         {
@@ -243,14 +245,18 @@ public class Player : MonoBehaviour, IKillable
     private IEnumerator MineRock(GameObject _rock)
     {
         GetComponent<PlayerMoveTemp>().enabled = false;
+        transform.LookAt(new Vector3(_rock.transform.position.x, transform.position.y, _rock.transform.position.z));
+        GetComponent<Rigidbody>().freezeRotation = true;
+
         m_canLightAttack = false;
         m_canBigAttack = false;
-        transform.eulerAngles.Set(0, 0, 0);
+        
         m_animator.SetBool("Mine", true);
         yield return new WaitForSeconds(0.65f);
         _rock.GetComponent<Rock>().TakeDamage(1);
         yield return new WaitForSeconds(0.5f);
         GetComponent<PlayerMoveTemp>().enabled = true;
+        //GetComponent<Rigidbody>()
         m_canLightAttack = true;
         m_canBigAttack = true;
     }
