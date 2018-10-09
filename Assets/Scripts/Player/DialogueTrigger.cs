@@ -7,12 +7,7 @@ public class DialogueTrigger : MonoBehaviour {
 
     public float LetterPauseTime;
     public float sentencePauseTime;
-
-    [Header("Ending conversations")]
-    public string[] whiteblackNotUsedConvo;
-    public string[] allUsedConvo;
-    public string[] onlyWhiteConvo;
-    public string[] onlyBlackConvo;
+    public string[] conversationOrder;
 
     private int currDialogue;
     private GameObject dialogueBox;
@@ -36,10 +31,6 @@ public class DialogueTrigger : MonoBehaviour {
     IEnumerator PopupDialogue(GameObject player)
     {
         player.GetComponent<PlayerMoveTemp>().enabled = false;
-
-        string[] conversationOrder;
-
-        conversationOrder = whiteblackNotUsedConvo;
 
         if (player.GetComponent<Player>())
 

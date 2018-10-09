@@ -217,6 +217,8 @@ public class Player : MonoBehaviour, IKillable
             Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
         Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
+        GetComponent<PlayerMoveTemp>().enabled = false;
+
         m_animator.SetBool("BigAttack", true);
         Sweep.Play();
         Sweep.pitch = Random.Range(0.86f, 1.16f);
@@ -240,6 +242,7 @@ public class Player : MonoBehaviour, IKillable
         m_animator.SetBool("BigAttack", false);
         m_canLightAttack = true;
         m_canBigAttack = true;
+        GetComponent<PlayerMoveTemp>().enabled = true;
     }
 
     private IEnumerator MineRock(GameObject _rock)
@@ -256,7 +259,6 @@ public class Player : MonoBehaviour, IKillable
         _rock.GetComponent<Rock>().TakeDamage(1);
         yield return new WaitForSeconds(0.5f);
         GetComponent<PlayerMoveTemp>().enabled = true;
-        //GetComponent<Rigidbody>()
         m_canLightAttack = true;
         m_canBigAttack = true;
     }
