@@ -12,10 +12,12 @@ public class DialogueTrigger : MonoBehaviour {
     private int currDialogue;
     private GameObject dialogueBox;
     private Text conversationText;
+    private GameObject PlayerCamera;
 
     private void Awake()
     {
         dialogueBox = GameObject.Find("DialogueBoxPlayer");
+        PlayerCamera = GameObject.Find("PlayerCam");
         dialogueBox.SetActive(false);
         conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
     }
@@ -33,7 +35,7 @@ public class DialogueTrigger : MonoBehaviour {
         player.GetComponent<PlayerMoveTemp>().enabled = false;
 
         if (player.GetComponent<Player>())
-
+        
         dialogueBox.SetActive(true);
 
         for (int i = 0; i < conversationOrder.Length; i++)
@@ -49,5 +51,6 @@ public class DialogueTrigger : MonoBehaviour {
 
         dialogueBox.SetActive(false);
         player.GetComponent<PlayerMoveTemp>().enabled = true;
+        gameObject.SetActive(false);
     }
 }
