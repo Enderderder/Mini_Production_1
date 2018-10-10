@@ -186,7 +186,6 @@ public class Player : MonoBehaviour, IKillable
 
         foreach (RaycastHit hitResult in raycastHits)
         {
-            Debug.Log("Hit: " + hitResult.transform.gameObject.name);
             // Do whatever the other object needs to be react
             IKillable killableObj = hitResult.transform.GetComponent<IKillable>();
             if (killableObj != null)
