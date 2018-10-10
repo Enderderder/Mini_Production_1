@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DialogueTrigger : MonoBehaviour {
 
@@ -26,6 +27,7 @@ public class DialogueTrigger : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            if (transform.childCount > 0) { PlayerCamera.transform.DOMove(transform.GetComponentInChildren<Transform>().position, 1.0f, false); }
             StartCoroutine(PopupDialogue(other.gameObject));
         }
     }
