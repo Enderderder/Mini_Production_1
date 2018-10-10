@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DialogueTrigger : MonoBehaviour {
 
@@ -12,10 +13,12 @@ public class DialogueTrigger : MonoBehaviour {
     private int currDialogue;
     private GameObject dialogueBox;
     private Text conversationText;
+    private GameObject playerCam;
 
     private void Awake()
     {
         dialogueBox = GameObject.Find("DialogueBoxPlayer");
+        playerCam = GameObject.Find("PlayerCam");
         dialogueBox.SetActive(false);
         conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
     }
@@ -32,7 +35,17 @@ public class DialogueTrigger : MonoBehaviour {
     {
         player.GetComponent<PlayerMoveTemp>().enabled = false;
 
-        if (player.GetComponent<Player>())
+        Vector3 camPos = playerCam.transform.position;
+        Vector3 camRot = playerCam.transform.eulerAngles;
+        //if (player.GetComponent<Player>())
+
+        if (transform.childCount > 0)
+        {
+            playerCam.GetComponent<PlayerCamera>().enabled = false;
+            playerCam.transform.DOMove(transform.GetChild(0).position, 1.0f, false);
+            playerCam.transform.DORotate(transform.GetChild(0).transform.eulerAngles, 1.0f);
+            yield return new WaitForSeconds(2);
+        }
 
         dialogueBox.SetActive(true);
 
@@ -41,13 +54,23 @@ public class DialogueTrigger : MonoBehaviour {
             conversationText.text = "";
             foreach (char item in conversationOrder[i])
             {
-                yield return new WaitForSeconds(LetterPauseTime);
                 conversationText.text += item;
             }
-            yield return new WaitForSeconds(sentencePauseTime);
+
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
         }
 
         dialogueBox.SetActive(false);
+
+        if (transform.childCount > 0)
+        {
+            playerCam.transform.DOMove(camPos, 1.0f, false);
+            playerCam.transform.DORotate(camRot, 1.0f);
+            yield return new WaitForSeconds(1);
+            playerCam.GetComponent<PlayerCamera>().enabled = true;
+        }
+
         player.GetComponent<PlayerMoveTemp>().enabled = true;
+        gameObject.SetActive(false);
     }
 }
