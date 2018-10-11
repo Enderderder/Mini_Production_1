@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour {
 
+    public GameObject playerPrefab;
+
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        if (GameObject.Find("TempCharacter") == null)
+        {
+            Instantiate(playerPrefab, transform.position, transform.rotation);
+        }
+
         GameObject.Find("TempCharacter").transform.position = transform.position;
 	}
 	

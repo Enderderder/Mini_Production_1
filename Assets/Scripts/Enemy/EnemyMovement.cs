@@ -45,6 +45,11 @@ public class EnemyMovement : MonoBehaviour, IKillable
     }
     private void Update()
     {
+        if (Boom == null)
+        {
+            Boom = GameObject.Find("BoomSound").GetComponent<AudioSource>();
+        }
+
         // Shoot out a ray infront of the player
         Ray attackRay = new Ray(this.transform.position, this.transform.forward);
 
@@ -125,7 +130,7 @@ public class EnemyMovement : MonoBehaviour, IKillable
     {
         //yield return new WaitForSeconds(attackSpeed);
         if (damagingplayer == true) {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().TakeDamage(attackDamage - GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Deffence);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().TakeDamage(attackDamage - GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Defence);
         }
         damagingplayer = false;
     }
