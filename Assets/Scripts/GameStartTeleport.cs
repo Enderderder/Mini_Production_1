@@ -17,6 +17,6 @@ public class GameStartTeleport : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("Chris");
+        SceneManager.LoadScene("ChrisTest");
     } 
 }
