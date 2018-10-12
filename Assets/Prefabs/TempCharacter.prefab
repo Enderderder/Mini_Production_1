@@ -4781,6 +4781,7 @@ MonoBehaviour:
   Sweep: {fileID: 82085853519905980}
   Pickup: {fileID: 82187199600909656}
   inventory: {fileID: 114844238472981080}
+  dialogueBox: {fileID: 1242309088775414}
 --- !u!114 &114266664433918046
 MonoBehaviour:
   m_ObjectHideFlags: 1

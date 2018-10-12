@@ -14,7 +14,7 @@ public class SignInteractive : MonoBehaviour {
     private Text conversationText;
     private GameObject pressE_UI;
 
-    private void Awake()
+    private void Start()
     {
         pressE_UI = transform.Find("PressE_UI").gameObject;
         pressE_UI.SetActive(false);
@@ -69,9 +69,8 @@ public class SignInteractive : MonoBehaviour {
     {
         if (dialogueBox == null)
         {
-            dialogueBox = GameObject.Find("DialogueBoxPlayer");
+            dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
             conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
-            dialogueBox.SetActive(false);
         }
     }
 }
