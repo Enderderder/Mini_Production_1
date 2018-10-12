@@ -9,12 +9,12 @@ public class SpawnPoint : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        if (GameObject.Find("TempCharacter") == null)
+        if (GameObject.FindGameObjectWithTag("Player") == null)
         {
             Instantiate(playerPrefab, transform.position, transform.rotation);
         }
 
-        GameObject.Find("TempCharacter").transform.position = transform.position;
+        GameObject.FindGameObjectWithTag("Player").transform.position = transform.position;
 	}
 	
 	// Update is called once per frame
