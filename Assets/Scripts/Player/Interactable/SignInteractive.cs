@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SignInteractive : MonoBehaviour {
 
@@ -12,13 +13,11 @@ public class SignInteractive : MonoBehaviour {
     private GameObject dialogueBox;
     private Text conversationText;
     private GameObject pressE_UI;
-    private Transform mainCamera;
 
     private void Awake()
     {
         pressE_UI = transform.Find("PressE_UI").gameObject;
         pressE_UI.SetActive(false);
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     private void OnTriggerStay(Collider other)
@@ -26,7 +25,7 @@ public class SignInteractive : MonoBehaviour {
         if (other.tag == "Player")
         {
             pressE_UI.SetActive(true);
-            pressE_UI.transform.LookAt(mainCamera.position, new Vector3(0, 1, 0));
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 StartCoroutine(PopupDialogue(other.gameObject));
