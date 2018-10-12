@@ -9,20 +9,44 @@ public class Rock : MonoBehaviour
     [Header("Stats")]
     public float TotalHealth = 1f;
     public float CurrHealth;
+    public bool isMinable;
     //public Animator anim;
 
     public GameObject brokenRock;
     public GameObject Ore;
-    public AudioSource Break;
+    private AudioSource Break;
+    private GameObject pressE_UI;
+    private Transform playerCam;
 
     void Start ()
     {
         // Set to full health at the beginning
         CurrHealth = TotalHealth;
+        isMinable = false;
+        pressE_UI = transform.Find("PressE_UI").gameObject;
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    }
+
+    private void Update()
+    {
+        if (isMinable)
+        {
+            pressE_UI.SetActive(true);
+            pressE_UI.transform.LookAt(playerCam.position);
+        }
+        else
+        {
+            pressE_UI.SetActive(false);
+        }
+
+        if (Break == null)
+        {
+            Break = GameObject.Find("BreakSound").GetComponent<AudioSource>();
+        }
     }
 
     /* Interface Implementation =================================*/
-    
+
     // IKillable
     public void TakeDamage(float _value)
     {

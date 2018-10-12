@@ -7,7 +7,6 @@ using DG.Tweening;
 public class DialogueTrigger : MonoBehaviour {
 
     public float LetterPauseTime;
-    public float sentencePauseTime;
     public string[] conversationOrder;
 
     private int currDialogue;
@@ -17,10 +16,7 @@ public class DialogueTrigger : MonoBehaviour {
 
     private void Awake()
     {
-        dialogueBox = GameObject.Find("DialogueBoxPlayer");
         playerCam = GameObject.Find("PlayerCam");
-        dialogueBox.SetActive(false);
-        conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,7 +33,6 @@ public class DialogueTrigger : MonoBehaviour {
 
         Vector3 camPos = playerCam.transform.position;
         Vector3 camRot = playerCam.transform.eulerAngles;
-        //if (player.GetComponent<Player>())
 
         if (transform.childCount > 0)
         {
@@ -57,7 +52,7 @@ public class DialogueTrigger : MonoBehaviour {
                 conversationText.text += item;
             }
 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
 
         dialogueBox.SetActive(false);
@@ -72,5 +67,15 @@ public class DialogueTrigger : MonoBehaviour {
 
         player.GetComponent<PlayerMoveTemp>().enabled = true;
         gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (dialogueBox == null)
+        {
+            dialogueBox = GameObject.Find("DialogueBoxPlayer");
+            conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
+            dialogueBox.SetActive(false);
+        }
     }
 }
