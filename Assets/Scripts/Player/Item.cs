@@ -62,7 +62,7 @@ public class Item : MonoBehaviour
                 break;
 
             case ItemType.BlackStone:
-                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Deffence++;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Defence++;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UpdateStatsPanel();
                 break;
 

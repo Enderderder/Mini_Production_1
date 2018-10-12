@@ -480,8 +480,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   quality: 3
-  spriteNeutral: {fileID: 21300000, guid: 860dba7992efa46418808bde88ea9c30, type: 3}
-  spriteHighlighted: {fileID: 21300000, guid: 2604540196309f242a4afd4f9f1b662e, type: 3}
+  spriteNeutral: {fileID: 21300000, guid: 9fbd5212dc37ef2418978319d9e27320, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 9fbd5212dc37ef2418978319d9e27320, type: 3}
   maxSize: 100
   strength: 0
   intellect: 0

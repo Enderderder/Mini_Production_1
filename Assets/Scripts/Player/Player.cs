@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, IKillable
 	public float CurrHealth;
 	public float lightAttackDmg = 50f;
     public float heavyAttackDmg = 80f;
-	public float Deffence = 50f;
+	public float Defence = 50f;
 	public float Speed = 300f;
     public float AttackRange = 3f;
     public float AttackRadius = 1f;
@@ -47,6 +47,8 @@ public class Player : MonoBehaviour, IKillable
     public Inventory inventory;
     private static bool created = false;
 
+    private GameObject lastRockInRange;
+
     void Awake()
 	{
         if (!created)
@@ -67,7 +69,7 @@ public class Player : MonoBehaviour, IKillable
         atkLabel = m_statsCanvas.transform.
             Find("AttackValue").gameObject.GetComponent<TextMeshProUGUI>();
         defLabel = m_statsCanvas.transform.
-            Find("DeffendValue").gameObject.GetComponent<TextMeshProUGUI>();
+            Find("DefendValue").gameObject.GetComponent<TextMeshProUGUI>();
         spdLabel = m_statsCanvas.transform.
             Find("SpeedValue").gameObject.GetComponent<TextMeshProUGUI>();
     }
@@ -94,7 +96,7 @@ public class Player : MonoBehaviour, IKillable
             effect.SetActive(true);
         }
 
-        if (Deffence >= 60)
+        if (Defence >= 60)
         {
             darkaura = true;
         }
@@ -125,24 +127,33 @@ public class Player : MonoBehaviour, IKillable
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && m_canBigAttack && m_canLightAttack)
+        // Shoot out a ray infront of the player
+        Ray attackRay = new Ray(this.transform.position, this.transform.forward);
+
+        RaycastHit[] raycastHits;
+        // Cast out the raysa as a sphere shape in the attack range
+        raycastHits =
+            Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
+        Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
+
+        foreach (RaycastHit hitResult in raycastHits)
         {
-            // Shoot out a ray infront of the player
-            Ray attackRay = new Ray(this.transform.position, this.transform.forward);
-
-            RaycastHit[] raycastHits;
-            // Cast out the raysa as a sphere shape in the attack range
-            raycastHits =
-                Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
-            Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
-
-            foreach (RaycastHit hitResult in raycastHits)
+            if (hitResult.transform.tag == "Rock")
             {
-                if (hitResult.transform.tag == "Rock")
+                hitResult.transform.GetComponent<Rock>().isMinable = true;
+                lastRockInRange = hitResult.transform.gameObject;
+
+                if (Input.GetKeyDown(KeyCode.E) && m_canBigAttack && m_canLightAttack)
                 {
                     StartCoroutine(MineRock(hitResult.transform.gameObject));
                 }
             }
+        }
+
+        if (lastRockInRange != null)
+        {
+            lastRockInRange.GetComponent<Rock>().isMinable = false;
+            lastRockInRange = null;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -282,7 +293,7 @@ public class Player : MonoBehaviour, IKillable
 	public void UpdateStatsPanel()
 	{
 		atkLabel.SetText(lightAttackDmg.ToString());
-		defLabel.SetText(Deffence.ToString());
+		defLabel.SetText(Defence.ToString());
 		spdLabel.SetText(Speed.ToString());
 	}
 
