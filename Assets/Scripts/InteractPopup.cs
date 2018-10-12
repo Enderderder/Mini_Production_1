@@ -10,8 +10,7 @@ public class InteractPopup : MonoBehaviour {
 	void OnEnable ()
     {
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        transform.DOPunchScale(new Vector3(0.2f, 0.2f, 0), 0.4f);
-        //Debug.Log("Hello");
+        transform.DOPunchScale(new Vector3(0.06f, 0.06f, 0), 0.4f);
     }
 	
 	void Update ()
