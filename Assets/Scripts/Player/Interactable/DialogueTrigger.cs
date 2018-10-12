@@ -73,7 +73,7 @@ public class DialogueTrigger : MonoBehaviour {
     {
         if (dialogueBox == null)
         {
-            dialogueBox = GameObject.Find("DialogueBoxPlayer");
+            dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
             conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
             dialogueBox.SetActive(false);
         }
