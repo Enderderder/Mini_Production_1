@@ -40,7 +40,7 @@ public class EnemyMovement : MonoBehaviour, IKillable
     }
     private void Start()
     {
-        StartCoroutine(MoveToPos());
+        //StartCoroutine(MoveToPos());
         currHealth = maxHealth;
     }
     private void Update()
@@ -66,6 +66,11 @@ public class EnemyMovement : MonoBehaviour, IKillable
             if (hitResult.rigidbody.tag == "Player" && hitResult.distance < 1)
             {
                 anim.SetBool("Attack", true);
+                damagingplayer = true;
+            }
+            else
+            {
+                damagingplayer = false;
             }
         }
         //anim.SetBool("Attack", false);
@@ -73,52 +78,52 @@ public class EnemyMovement : MonoBehaviour, IKillable
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (GetComponent<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player")
         {
             if (IsAlive()) {
                 isWandering = false;
                 agent.SetDestination(other.transform.position);
-                agent.updateRotation = true;
+                //agent.updateRotation = true;
             }
-            else
-            {
-                //agent.SetDestination(this.transform.position);
-            }
+            
         }
+
+   
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" && IsAlive())
+        if (GetComponent<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player" && IsAlive())
         {
             isWandering = true;
-            StartCoroutine(MoveToPos());
+            //StartCoroutine(MoveToPos());
         }
+  
     }
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            damagingplayer = true;
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        damagingplayer = true;
             
-        }
-    }
+    //    }
+    //}
 
-    IEnumerator MoveToPos()
-    {
+    //IEnumerator MoveToPos()
+    //{
 
-        Vector3 newPos = new Vector3(Random.Range(transform.position.x - wanderOffsetX, transform.position.x + wanderOffsetX),
-            transform.position.y,
-            Random.Range(transform.position.z - wanderOffsetZ, transform.position.z + wanderOffsetZ));
+    //    Vector3 newPos = new Vector3(Random.Range(transform.position.x - wanderOffsetX, transform.position.x + wanderOffsetX),
+    //        transform.position.y,
+    //        Random.Range(transform.position.z - wanderOffsetZ, transform.position.z + wanderOffsetZ));
 
-        agent.SetDestination(newPos);
-        agent.updateRotation = true;
-        yield return new WaitForSeconds(ChangeDirectionSpeed);
+    //    agent.SetDestination(newPos);
+    //    agent.updateRotation = true;
+    //    yield return new WaitForSeconds(ChangeDirectionSpeed);
 
-        if (isWandering)
-        {
-            StartCoroutine(MoveToPos());
-        }
-    }
+    //    if (isWandering)
+    //    {
+    //        StartCoroutine(MoveToPos());
+    //    }
+    //}
     IEnumerator DamageEffect()
     {
         anim.SetTrigger("Hurt");
@@ -130,14 +135,15 @@ public class EnemyMovement : MonoBehaviour, IKillable
     {
         //yield return new WaitForSeconds(attackSpeed);
         if (damagingplayer == true) {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().TakeDamage(attackDamage - GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Defence);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().TakeDamage(Mathf.Abs(attackDamage - GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Defence));
         }
-        damagingplayer = false;
+        
     }
 
     public void DoneAttack()
     {
         anim.SetBool("Attack", false);
+        damagingplayer = false;
     }
 
     /* Interface Implementation =================================*/
