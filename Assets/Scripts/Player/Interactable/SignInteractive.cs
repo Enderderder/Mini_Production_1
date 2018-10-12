@@ -25,7 +25,11 @@ public class SignInteractive : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            pressE_UI.SetActive(true);
+            if (pressE_UI.Awake == false)
+            {
+                pressE_UI.SetActive(true);
+            }
+
             pressE_UI.transform.LookAt(mainCamera.position, new Vector3(0, 1, 0));
             if (Input.GetKeyDown(KeyCode.E))
             {
