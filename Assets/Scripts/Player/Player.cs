@@ -48,13 +48,16 @@ public class Player : MonoBehaviour, IKillable
     private static bool created = false;
 
     private GameObject lastRockInRange;
+    public GameObject dialogueBox;
 
     void Awake()
-	{
+    {
         if (!created)
         {
             DontDestroyOnLoad(this.gameObject);
         }
+
+        dialogueBox.SetActive(false);
 
         // Reference Player animator
         m_animator = GetComponentInChildren<Animator>();
