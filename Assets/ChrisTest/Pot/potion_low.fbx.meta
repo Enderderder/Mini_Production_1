@@ -3,31 +3,31 @@ guid: bea61edb83b8ce044b417841e8660af3
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: liquid
-    100002: //RootNode
-    100004: potion_low
-    400000: liquid
-    400002: //RootNode
-    400004: potion_low
-    2100000: lambert1
-    2100002: lambert2
-    2300000: liquid
-    2300002: potion_low
-    3300000: liquid
-    3300002: potion_low
-    4300000: potion_low
-    4300002: liquid
+    100000: glass_low
+    100002: liquid_low
+    100004: //RootNode
+    400000: glass_low
+    400002: liquid_low
+    400004: //RootNode
+    2100000: lambert2
+    2100002: lambert1
+    2300000: glass_low
+    2300002: liquid_low
+    3300000: glass_low
+    3300002: liquid_low
+    4300000: liquid_low
+    4300002: glass_low
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second: {fileID: 2100000, guid: eaff074cb7c8eb3418caee6990676bdf, type: 2}
+    second: {fileID: 2100000, guid: c554080e652b4f84dba834ee02ebf763, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert2
-    second: {fileID: 2100000, guid: 61aef7f50942e894398324be156f3b2d, type: 2}
+    second: {fileID: 2100000, guid: dd022dafdfac4b142b7cd33b0a6ea35f, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -58,7 +58,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 20
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
