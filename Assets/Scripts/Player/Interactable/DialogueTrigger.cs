@@ -34,18 +34,25 @@ public class DialogueTrigger : MonoBehaviour {
         Vector3 camPos = playerCam.transform.position;
         Vector3 camRot = playerCam.transform.eulerAngles;
 
-        if (transform.childCount > 0)
-        {
-            playerCam.GetComponent<PlayerCamera>().enabled = false;
-            playerCam.transform.DOMove(transform.GetChild(0).position, 1.0f, false);
-            playerCam.transform.DORotate(transform.GetChild(0).transform.eulerAngles, 1.0f);
-            yield return new WaitForSeconds(2);
-        }
+        List<Transform> childrenTransforms = new List<Transform>();
 
-        dialogueBox.SetActive(true);
+        foreach(Transform child in transform)
+        {
+            childrenTransforms.Add(child);
+        }
 
         for (int i = 0; i < conversationOrder.Length; i++)
         {
+            if (transform.childCount >= i + 1)
+            {
+                playerCam.GetComponent<PlayerCamera>().enabled = false;
+                playerCam.transform.DOMove(childrenTransforms[i].position, 1.0f, false);
+                playerCam.transform.DORotate(childrenTransforms[i].eulerAngles, 1.0f);
+                yield return new WaitForSeconds(1.5f);
+            }
+
+            dialogueBox.SetActive(true);
+
             conversationText.text = "";
             foreach (char item in conversationOrder[i])
             {
@@ -53,9 +60,9 @@ public class DialogueTrigger : MonoBehaviour {
             }
 
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-        }
 
-        dialogueBox.SetActive(false);
+            dialogueBox.SetActive(false);
+        }
 
         if (transform.childCount > 0)
         {
