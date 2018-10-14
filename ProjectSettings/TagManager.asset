@@ -8,6 +8,7 @@ TagManager:
   - Rock
   - Item
   - MutiItem
+  - Boss
   layers:
   - Default
   - TransparentFX
