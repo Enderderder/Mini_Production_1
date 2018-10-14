@@ -43,7 +43,7 @@ public class DialogueTrigger : MonoBehaviour {
 
         for (int i = 0; i < conversationOrder.Length; i++)
         {
-            if (childrenTransforms[i] != null)
+            if (transform.childCount >= i + 1)
             {
                 playerCam.GetComponent<PlayerCamera>().enabled = false;
                 playerCam.transform.DOMove(childrenTransforms[i].position, 1.0f, false);
