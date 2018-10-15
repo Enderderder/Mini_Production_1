@@ -60,24 +60,30 @@ public class Boss : MonoBehaviour, IKillable
 
         // Find the target
         m_playerTarget = GameObject.FindGameObjectWithTag("Player");
-
-        if (m_playerTarget)
-        {
-            if (m_actionLock == false)
-            {
-                StartCoroutine(TailAttackMove());
-            }
-            
-
-            //m_navAgent.SetDestination(m_playerTarget.transform.position);
-            //m_animator.SetBool("IsWalking", true);
-        }
     }
 	void Update ()
     {
         if (!m_hasAlerted && DistanceToPlayer() <= AlertRange)
         {
             m_hasAlerted = true;
+        }
+
+        // Check if the player exist
+        if (m_playerTarget)
+        {
+            if (m_actionLock == false && m_hasAlerted)
+            {
+                StartCoroutine(TailAttackMove());
+            }
+
+
+            //m_navAgent.SetDestination(m_playerTarget.transform.position);
+            //m_animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            // Try to find the player again
+            m_playerTarget = GameObject.FindGameObjectWithTag("Player");
         }
 
         // Check if the agent has reach the destination
@@ -184,7 +190,7 @@ public class Boss : MonoBehaviour, IKillable
         yield return new WaitForSeconds(WaitTimeAfterTailAtk);
 
         // Free the action lock as this action has finished
-        m_actionLock = true;
+        m_actionLock = false;
     }
 
     /*
@@ -321,7 +327,7 @@ public class Boss : MonoBehaviour, IKillable
         // Stop the behaviour thats happening
         StopAllCoroutines();
 
-        // Start the a
+        // Start the death action
         StartCoroutine(DeathResult());
     }
     public bool IsAlive()
