@@ -3523,7 +3523,7 @@ Prefab:
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
       propertyPath: conversationOrder.Array.data[2]
-      value: I didn't know i was holding this.
+      value: I didn't know I was holding this.
       objectReference: {fileID: 0}
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
@@ -3553,6 +3553,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.x
       value: 16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2770d3447aa9ce49af3864dccbc1b67, type: 2}
