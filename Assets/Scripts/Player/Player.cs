@@ -50,6 +50,9 @@ public class Player : MonoBehaviour, IKillable
     private GameObject lastRockInRange;
     public GameObject dialogueBox;
 
+    [System.NonSerialized] public int BlackGemsCollected;
+    [System.NonSerialized] public int BlueGemsCollected;
+
     void Awake()
     {
         if (!created)

@@ -54,6 +54,7 @@ public class SignInteractive : MonoBehaviour {
             foreach (char item in conversationOrder[i])
             {
                 conversationText.text += item;
+                yield return new WaitForSeconds(LetterPauseTime);
             }
 
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
