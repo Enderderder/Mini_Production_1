@@ -191,7 +191,7 @@ public class Player : MonoBehaviour, IKillable
         RaycastHit[] raycastHits;
         // Cast out the raysa as a sphere shape in the attack range
         raycastHits = 
-            Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
+            Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Collide);
         Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
         m_animator.SetBool("Attack", true);
@@ -201,7 +201,7 @@ public class Player : MonoBehaviour, IKillable
         foreach (RaycastHit hitResult in raycastHits)
         {
             // Do whatever the other object needs to be react
-            IKillable killableObj = hitResult.transform.GetComponent<IKillable>();
+            IKillable killableObj = hitResult.transform.GetComponentInParent<IKillable>();
             if (killableObj != null)
             {
                 killableObj.TakeDamage(lightAttackDmg);
@@ -227,7 +227,7 @@ public class Player : MonoBehaviour, IKillable
         RaycastHit[] raycastHits;
         // Cast out the raysa as a sphere shape in the attack range
         raycastHits =
-            Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
+            Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Collide);
         Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
         GetComponent<PlayerMoveTemp>().enabled = false;
@@ -240,7 +240,7 @@ public class Player : MonoBehaviour, IKillable
         {
             Debug.Log("Hit: " + hitResult.transform.gameObject.name);
             // Do whatever the other object needs to be react
-            IKillable killableObj = hitResult.transform.GetComponent<IKillable>();
+            IKillable killableObj = hitResult.transform.GetComponentInParent<IKillable>();
             if (killableObj != null)
             {
                 killableObj.TakeDamage(heavyAttackDmg);

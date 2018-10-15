@@ -35,6 +35,7 @@ public class Boss : MonoBehaviour, IKillable
     /************************************************************************/
 
     private bool m_actionLock;
+    private bool m_hasAlerted;
 
     /************************************************************************/
     
@@ -50,6 +51,12 @@ public class Boss : MonoBehaviour, IKillable
     {
         // Free the action lock
         m_actionLock = false;
+
+        // Start with un-alert
+        m_hasAlerted = false;
+
+        // Set the health to full at the beginning
+        CurrHealth = TotalHealth;
 
         // Find the target
         m_playerTarget = GameObject.FindGameObjectWithTag("Player");
@@ -68,6 +75,11 @@ public class Boss : MonoBehaviour, IKillable
     }
 	void Update ()
     {
+        if (!m_hasAlerted && DistanceToPlayer() <= AlertRange)
+        {
+            m_hasAlerted = true;
+        }
+
         // Check if the agent has reach the destination
         if (!m_navAgent.pathPending)
         {
@@ -93,10 +105,7 @@ public class Boss : MonoBehaviour, IKillable
     public bool InTailAttackRange()
     {
         // Check the distance between medusa and the player
-        float distanceToPlayer =
-            Vector3.Distance(this.transform.position, m_playerTarget.transform.position);
-
-        if (distanceToPlayer <= TailAttackRange * 0.8f)
+        if (DistanceToPlayer() <= TailAttackRange * 0.8f)
         {
             return true;
         }
@@ -226,8 +235,7 @@ public class Boss : MonoBehaviour, IKillable
      */
     public IEnumerator DeathResult()
     {
-        // Stop the behaviour thats happening
-        StopAllCoroutines();
+        
 
         //m_animator.SetBool("IsDead", true);
 
@@ -273,12 +281,30 @@ public class Boss : MonoBehaviour, IKillable
         circleToBeClear.positionCount = 0;
     }
 
+    /*
+     *	Get the distance to the player target
+     *	(Only if the player exist)
+     */
+    private float DistanceToPlayer()
+    {
+        if (m_playerTarget)
+        {
+            return Vector3.Distance(this.transform.position, m_playerTarget.transform.position);
+        }
+        else
+        {
+            Debug.Log("Unable to get the distance to player as the player don't exist");
+            return 0.0f;
+        }
+    }
+
     /* Interface Implementation =================================*/
 
     // IKillable
     public void TakeDamage(float _value)
     {
         CurrHealth -= _value;
+        CheckDeath();
     }
     public void CheckDeath()
     {
@@ -289,6 +315,10 @@ public class Boss : MonoBehaviour, IKillable
     }
     public void KillEntity()
     {
+        // Stop the behaviour thats happening
+        StopAllCoroutines();
+
+        // Start the a
         StartCoroutine(DeathResult());
     }
     public bool IsAlive()
