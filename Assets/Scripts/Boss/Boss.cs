@@ -19,10 +19,13 @@ public class Boss : MonoBehaviour, IKillable
     public float WaitTimeAfterTailAtk;
     [Header("Laser Attack")]
     public float AimingTime;
+    public float LaserChargeTime;
+    public float RecoverTimeAfterLaser;
 
     [Header("Reference")]
     public GameObject TailAttackOrigin;
     public GameObject RangeIndication;
+    public GameObject LaserIndicationOrigin;
 
     // The player object
     private GameObject m_playerTarget;
@@ -73,12 +76,8 @@ public class Boss : MonoBehaviour, IKillable
         {
             if (m_actionLock == false && m_hasAlerted)
             {
-                StartCoroutine(TailAttackMove());
+                StartCoroutine(LaserAttackMove());
             }
-
-
-            //m_navAgent.SetDestination(m_playerTarget.transform.position);
-            //m_animator.SetBool("IsWalking", true);
         }
         else
         {
@@ -173,7 +172,6 @@ public class Boss : MonoBehaviour, IKillable
         RaycastHit[] tailAttackHits;
         Vector3 boxBound = new Vector3(TailAttackRange, 1.0f, TailAttackRange);
         tailAttackHits = Physics.SphereCastAll(TailAttackOrigin.transform.position, TailAttackRange, Vector3.forward, 0.0f);
-        //tailAttackHits = Physics.BoxCastAll(TailAttackOrigin.transform.position, boxBound, Vector3.forward, Quaternion.identity, 0.0f);
 
         // Check if it hits the player
         foreach (RaycastHit hitInfo in tailAttackHits)
@@ -182,7 +180,8 @@ public class Boss : MonoBehaviour, IKillable
             if (hitObj.tag == "Player")
             {
                 // Apply the damage
-                hitObj.GetComponent<Player>().TakeDamage(TailAttackDmg);
+                hitObj.GetComponentInParent<Player>().TakeDamage(TailAttackDmg);
+                break;
             }
         }
 
@@ -198,19 +197,34 @@ public class Boss : MonoBehaviour, IKillable
      */
      public IEnumerator LaserAttackMove()
     {
+        // Lock any action
+        m_actionLock = true;
+
         // Keep rotate towards player to aim
         Coroutine rotationCoroutine = StartCoroutine(RotateTowardsPlayer());
+
+        // Start the aiming
+        Coroutine aimingCoroutine = StartCoroutine(AimingLaser());
 
         // Wait for the time to aim
         yield return new WaitForSeconds(AimingTime);
 
         // Stop aiming as about to fire
+        StopCoroutine(aimingCoroutine);
         StopCoroutine(rotationCoroutine);
 
+        // Charge up the laser
+        yield return new WaitForSeconds(LaserChargeTime);
 
+        // Play the animation and undraw the indication asap
+        m_animator.SetTrigger("LaserAttack");
+        UndrawLaserIndication();
 
+        // Wait for the recovery of shooting the laser
+        yield return new WaitForSeconds(RecoverTimeAfterLaser);
 
-        yield return null;
+        // Free the action lock as this action has finished
+        m_actionLock = false;
     }
 
     /*
@@ -234,6 +248,16 @@ public class Boss : MonoBehaviour, IKillable
         // When reach the target, stop
         m_navAgent.SetDestination(this.transform.position);
         m_animator.SetBool("IsWalking", false);
+    }
+
+    public IEnumerator AimingLaser()
+    {
+        while (true)
+        {
+            DrawLaserIndication(m_playerTarget.transform.position);
+
+            yield return null;
+        }
     }
 
     /*
@@ -288,6 +312,31 @@ public class Boss : MonoBehaviour, IKillable
         LineRenderer circleToBeClear = RangeIndication.GetComponent<LineRenderer>();
 
         circleToBeClear.positionCount = 0;
+    }
+
+    /*
+     *	Draw the laser indication line towards a point
+     *	in the world
+     */
+    private void DrawLaserIndication(Vector3 _targetLocation)
+    {
+        // Get the component
+        LineRenderer laserLine = LaserIndicationOrigin.GetComponent<LineRenderer>();
+
+        laserLine.positionCount = 2;
+
+        laserLine.SetPosition(0, LaserIndicationOrigin.transform.position);
+        laserLine.SetPosition(1, _targetLocation);
+    }
+
+    /*
+     *	Clear the laser indication
+     */
+    private void UndrawLaserIndication()
+    {
+        LineRenderer laserLine = LaserIndicationOrigin.GetComponent<LineRenderer>();
+
+        laserLine.positionCount = 0;
     }
 
     /*
