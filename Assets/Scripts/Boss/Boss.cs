@@ -235,14 +235,17 @@ public class Boss : MonoBehaviour, IKillable
      */
     public IEnumerator DeathResult()
     {
-        
+        // Stop the navigation function of the medusa
+        m_navAgent.isStopped = true;
 
-        //m_animator.SetBool("IsDead", true);
+        // Play the death animation
+        m_animator.SetTrigger("Death");
 
-        yield return new WaitForSeconds(2.0f);
+        // Give some time for the animation to play as
+        // well as slow down the pace
+        yield return new WaitForSeconds(4.0f);
+
         Debug.Log("The boss has been defeated");
-
-        //SceneManager.LoadScene("Chris");
     }
 
     /*
