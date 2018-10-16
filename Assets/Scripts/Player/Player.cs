@@ -50,6 +50,9 @@ public class Player : MonoBehaviour, IKillable
     private GameObject lastRockInRange;
     public GameObject dialogueBox;
 
+    [System.NonSerialized] public int BlackGemsCollected;
+    [System.NonSerialized] public int BlueGemsCollected;
+
     void Awake()
     {
         if (!created)
@@ -137,7 +140,7 @@ public class Player : MonoBehaviour, IKillable
         // Cast out the raysa as a sphere shape in the attack range
         raycastHits =
             Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Ignore);
-        Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
+        //Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
 
         foreach (RaycastHit hitResult in raycastHits)
         {
@@ -221,21 +224,26 @@ public class Player : MonoBehaviour, IKillable
         m_canLightAttack = false;
         m_canBigAttack = false;
 
-        // Shoot out a ray infront of the player
-        Ray attackRay = new Ray(this.transform.position, this.transform.forward);
-
-        RaycastHit[] raycastHits;
-        // Cast out the raysa as a sphere shape in the attack range
-        raycastHits =
-            Physics.SphereCastAll(attackRay, AttackRadius, AttackRange, AttackingLayer, QueryTriggerInteraction.Collide);
-        Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
-
+        // Disable the movement as the big attack
         GetComponent<PlayerMoveTemp>().enabled = false;
 
+        // Start the animation
         m_animator.SetBool("BigAttack", true);
+
+        // Wait a bit before the swinbg apply damage
+        yield return new WaitForSeconds(0.5f);
+
+        // Play the sound FX
         Sweep.Play();
         Sweep.pitch = Random.Range(0.86f, 1.16f);
 
+        RaycastHit[] raycastHits;
+        // Cast out the raysa as a sphere shape in the attack range
+        raycastHits = 
+            Physics.SphereCastAll(this.transform.position, AttackRange, Vector3.forward, 0.0f, AttackingLayer, QueryTriggerInteraction.Collide);
+        Debug.DrawRay(transform.position, transform.forward * AttackRange, Color.blue, 2f, false);
+
+        // Check the hit result and apply damage as needs
         foreach (RaycastHit hitResult in raycastHits)
         {
             Debug.Log("Hit: " + hitResult.transform.gameObject.name);
@@ -251,7 +259,7 @@ public class Player : MonoBehaviour, IKillable
             }
         }
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         m_animator.SetBool("BigAttack", false);
         m_canLightAttack = true;
         m_canBigAttack = true;

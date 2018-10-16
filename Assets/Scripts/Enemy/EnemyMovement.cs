@@ -93,15 +93,20 @@ public class EnemyMovement : StateMachine, IKillable
     }
     private void OnTriggerStay(Collider other)
     {
-        if (GetComponent<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player")
+        //if (GetComponentInChildren<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player")
+        //{
+        if (IsAlive() && other.tag == "Player")
         {
+
             if (IsAlive()) {
                 Target = other.transform;
             }
             
         }
 
-   
+        //}
+
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -178,6 +183,7 @@ public class EnemyMovement : StateMachine, IKillable
     public void KillEntity()
     {
         GetComponent<BoxCollider>().enabled = false;
+        //GetComponent<SphereCollider>().enabled = false;
         anim.SetBool("Attack", false);
         StopAllCoroutines();
         agent.SetDestination(this.transform.position);
