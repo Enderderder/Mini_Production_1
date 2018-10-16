@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using DG.Tweening;
 using UnityEngine.Rendering.PostProcessing;
 
-public class EnemyMovement : MonoBehaviour, IKillable
+public class EnemyMovement : StateMachine, IKillable
 {
     [Header("Stats")]
     public float attackDamage;
@@ -31,6 +31,10 @@ public class EnemyMovement : MonoBehaviour, IKillable
 
     public ParticleSystem deathparticle;
     public AudioSource Boom;
+    public float IdleToPatrolStandby = 4;
+    public Transform[] PatrolPoints;
+    Transform Target = null;
+    public float PatrolPointThreshold = 0.5f;
 
 
     void Awake()
@@ -40,11 +44,18 @@ public class EnemyMovement : MonoBehaviour, IKillable
     }
     private void Start()
     {
+        this.Register(new Idle(this));
+        this.Register(new Patrol(this));
+        this.Register(new Chase(this));
+        this.SetStartState(StateType.Idle);
         //StartCoroutine(MoveToPos());
         currHealth = maxHealth;
     }
     private void Update()
     {
+
+        this.UpdateMachine();
+
         if (Boom == null)
         {
             Boom = GameObject.Find("BoomSound").GetComponent<AudioSource>();
@@ -75,6 +86,10 @@ public class EnemyMovement : MonoBehaviour, IKillable
         }
         //anim.SetBool("Attack", false);
 
+
+        
+
+
     }
     private void OnTriggerStay(Collider other)
     {
@@ -82,9 +97,11 @@ public class EnemyMovement : MonoBehaviour, IKillable
         //{
         if (IsAlive() && other.tag == "Player")
         {
-            isWandering = false;
-            agent.SetDestination(other.transform.position);
-            //agent.updateRotation = true;
+
+            if (IsAlive()) {
+                Target = other.transform;
+            }
+            
         }
 
         //}
@@ -219,5 +236,173 @@ public class EnemyMovement : MonoBehaviour, IKillable
         return true;
     }
 
+
+
+    public class Idle : IState
+    {
+        float TimeToPatrol;
+        public Idle(StateMachine machine) : base(machine)
+        {
+
+
+        }
+        public override StateType ID
+        {
+            get
+            {
+                return StateType.Idle;
+            }
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return "Idle State";
+
+
+            }
+        }
+
+        public override void OnEnd()
+        {
+
+        }
+
+        public override void OnStart()
+        {
+            EnemyMovement npc = (EnemyMovement)Machine;
+            float maxTime = npc.IdleToPatrolStandby;
+            //get random idle time before patrol state
+            this.TimeToPatrol = UnityEngine.Random.Range(0, maxTime);
+        }
+
+        public override void OnUpdate()
+        {
+            TimeToPatrol -= Time.deltaTime;
+            if (TimeToPatrol <= 0)
+            {
+                Machine.ChangeState(StateType.Patroling, "Patroling");
+                return;
+            }
+            EnemyMovement npc = (EnemyMovement)Machine;
+            if (npc.Target != null)
+                Machine.ChangeState(StateType.Chasing, "Chasing");
+        }
+    }
+
+    public class Patrol : IState
+    {
+        int currentPatrolIdx = 0;
+        int pointToIdle;
+        public Patrol(StateMachine machine) : base(machine)
+        {
+
+        }
+        public override StateType ID
+        {
+            get
+            {
+                return StateType.Patroling;
+            }
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return "Patrol State";
+            }
+        }
+
+        public override void OnEnd()
+        {
+
+        }
+
+        public override void OnStart()
+        {
+            EnemyMovement npc = (EnemyMovement)Machine;
+            pointToIdle = UnityEngine.Random.Range(0, npc.PatrolPoints.Length);
+        }
+
+        public override void OnUpdate()
+        {
+            EnemyMovement npc = (EnemyMovement)Machine;
+            Transform target = npc.PatrolPoints[currentPatrolIdx];
+            Vector3 posA = npc.transform.position;
+            Vector3 posB = target.position;
+            Vector3 deltaPos = posB - posA;
+            float distance = deltaPos.magnitude;
+
+            if (distance <= npc.PatrolPointThreshold)//point has been reached, go to another point
+            {
+                if (currentPatrolIdx == pointToIdle)
+                {
+                    Machine.ChangeState(StateType.Idle, "Idle");
+                    return;
+                }
+                currentPatrolIdx++;
+            }
+            if (currentPatrolIdx >= npc.PatrolPoints.Length)
+                currentPatrolIdx = 0;
+
+            target = npc.PatrolPoints[currentPatrolIdx];
+            npc.agent.SetDestination(target.position);
+
+
+            if (npc.Target != null)
+                Machine.ChangeState(StateType.Chasing, "Chasing");
+        }
+    }
+
+    public class Chase : IState
+    {
+        float CurrentSpeed;
+
+        public Chase(StateMachine machine) : base(machine)
+        {
+
+        }
+        public override StateType ID
+        {
+            get
+            {
+                return StateType.Chasing;
+            }
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return "Chase state";
+            }
+        }
+
+        public override void OnEnd()
+        {
+            EnemyMovement npc = (EnemyMovement)Machine;
+            npc.agent.speed = CurrentSpeed;//Put back original value, cleaning up 
+        }
+
+        public override void OnStart()
+        {
+            EnemyMovement npc = (EnemyMovement)Machine;
+            CurrentSpeed = npc.agent.speed;
+            npc.agent.speed *= 1.5f;
+        }
+
+        public override void OnUpdate()
+        {
+            EnemyMovement npc = (EnemyMovement)Machine;
+            Transform target = npc.Target;
+            if (this.Name == "Chase state")
+            {
+                npc.agent.speed = 10;
+            }
+            npc.agent.SetDestination(target.position);
+        }
+    }
     // ============================================================
 }
