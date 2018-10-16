@@ -7,10 +7,12 @@ using DG.Tweening;
 public class DialogueTrigger : MonoBehaviour {
 
     public float LetterPauseTime;
+    public string[] nameOrder;
     public string[] conversationOrder;
 
     private int currDialogue;
     private GameObject dialogueBox;
+    private Text nameText;
     private Text conversationText;
     private GameObject playerCam;
 
@@ -53,6 +55,11 @@ public class DialogueTrigger : MonoBehaviour {
 
             dialogueBox.SetActive(true);
 
+            if (nameOrder.Length > i)
+            {
+                nameText.text = nameOrder[i] + ":";
+            }
+
             conversationText.text = "";
             foreach (char item in conversationOrder[i])
             {
@@ -60,7 +67,6 @@ public class DialogueTrigger : MonoBehaviour {
                 yield return new WaitForSeconds(LetterPauseTime);
             }
 
-            Debug.Log(i);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
             dialogueBox.SetActive(false);
@@ -84,6 +90,7 @@ public class DialogueTrigger : MonoBehaviour {
         {
             dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
             conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
+            nameText = dialogueBox.transform.Find("NameText").GetComponent<Text>();
             dialogueBox.SetActive(false);
         }
     }
