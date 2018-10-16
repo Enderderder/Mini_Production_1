@@ -153,7 +153,9 @@ public class EnemyMovement : StateMachine, IKillable
     {
         //yield return new WaitForSeconds(attackSpeed);
         if (damagingplayer == true) {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().TakeDamage(Mathf.Abs(attackDamage - GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Defence));
+           GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().TakeDamage(attackDamage);
+            
+            
         }
         
     }
@@ -185,7 +187,7 @@ public class EnemyMovement : StateMachine, IKillable
         GetComponent<BoxCollider>().enabled = false;
         //GetComponent<SphereCollider>().enabled = false;
         anim.SetBool("Attack", false);
-        StopAllCoroutines();
+        //StopAllCoroutines();
         agent.SetDestination(this.transform.position);
         anim.SetBool("Death", true);
 
@@ -208,8 +210,13 @@ public class EnemyMovement : StateMachine, IKillable
 
         TweenPost();
 
-        Destroy(gameObject);
-
+        //Destroy(gameObject);
+        Target = null;
+        this.ChangeState(StateType.Patroling, "Patroling");
+        GetComponent<BoxCollider>().enabled = true;
+        //this.gameObject.transform.position = PatrolPoints[3].position;
+        this.gameObject.SetActive(false);
+        
 
     }
 

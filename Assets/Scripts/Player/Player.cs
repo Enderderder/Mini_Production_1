@@ -11,7 +11,7 @@ public class Player : MonoBehaviour, IKillable
 	public float TotalHealth = 100f;
 	public float CurrHealth;
 	public float lightAttackDmg = 50f;
-    public float heavyAttackDmg = 80f;
+    public float heavyAttackmutiply = 1.5f;
 	public float Defence = 50f;
 	public float Speed = 300f;
     public float AttackRange = 3f;
@@ -251,7 +251,7 @@ public class Player : MonoBehaviour, IKillable
             IKillable killableObj = hitResult.transform.GetComponentInParent<IKillable>();
             if (killableObj != null)
             {
-                killableObj.TakeDamage(heavyAttackDmg);
+                killableObj.TakeDamage(lightAttackDmg * heavyAttackmutiply);
                 if (hitResult.transform.tag == "Enemy")
                 {
                     killCount++;
@@ -313,7 +313,9 @@ public class Player : MonoBehaviour, IKillable
     // IKillable
     public void TakeDamage(float _value)
     {
-        CurrHealth -= _value;
+        if (_value - Defence <= 0) { CurrHealth--; }
+        else { CurrHealth -= _value - Defence; }
+        
         UpdateHealthBar();
     }
     public void CheckDeath()

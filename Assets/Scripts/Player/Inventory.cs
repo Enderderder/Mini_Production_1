@@ -313,7 +313,7 @@ public class Inventory : MonoBehaviour
 
             //Calculates the position while taking the padding into account
             float xPos = slot.transform.position.x + slotPaddingLeft;
-            float yPos = slot.transform.position.y - slot.GetComponent<RectTransform>().sizeDelta.y - slotPaddingTop;
+            float yPos = slot.transform.position.y + slot.GetComponent<RectTransform>().sizeDelta.y;
 
             //Sets the position
             tooltip.transform.position = new Vector2(xPos, yPos);

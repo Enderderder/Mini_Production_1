@@ -5039,7 +5039,7 @@ MonoBehaviour:
   AttackRange: 4
   AttackRadius: 0.5
   darkaura: 0
-  effect: {fileID: 0}
+  effect: {fileID: 1577200490704064, guid: ab3da0fe20f34c24993c3a953d4279e4, type: 2}
   novillager: 0
   AttackingLayer:
     serializedVersion: 2
