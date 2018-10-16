@@ -60,7 +60,6 @@ public class DialogueTrigger : MonoBehaviour {
                 yield return new WaitForSeconds(LetterPauseTime);
             }
 
-            Debug.Log(i);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
             dialogueBox.SetActive(false);
