@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 135535494227296148}
   m_Layer: 12
   m_Name: RangeDetection
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,8 +317,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1399241244981666}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -24.155237, y: 86.22171, z: -89.45583}
+  m_LocalRotation: {x: -0, y: -0.70705235, z: -0, w: -0.7071613}
+  m_LocalPosition: {x: -48.927113, y: 86.23838, z: -18.0225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4313209024018646}
@@ -435,12 +435,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07178271479ff94c9a2094ef42eb456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentIstate: Patroling
   attackDamage: 60
   attackSpeed: 1
   attackRange: 3
   attackRadius: 1
   maxHealth: 100
-  currHealth: 0
+  currHealth: 100
   isWandering: 0
   wanderOffsetX: 10
   wanderOffsetZ: 10
@@ -451,6 +452,12 @@ MonoBehaviour:
   blackGem: {fileID: 1638029466058278, guid: 45d181fe834046b48aee6137c9968fb9, type: 2}
   deathparticle: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 2}
   Boom: {fileID: 0}
+  IdleToPatrolStandby: 4
+  PatrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  PatrolPointThreshold: 0.5
   PostVol: {fileID: 0}
 --- !u!114 &114850243624435686
 MonoBehaviour:
@@ -548,7 +555,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 0
+  m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.00001
