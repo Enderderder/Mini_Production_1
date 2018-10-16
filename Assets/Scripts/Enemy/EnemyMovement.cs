@@ -78,17 +78,18 @@ public class EnemyMovement : MonoBehaviour, IKillable
     }
     private void OnTriggerStay(Collider other)
     {
-        if (GetComponent<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player")
+        //if (GetComponentInChildren<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player")
+        //{
+        if (IsAlive() && other.tag == "Player")
         {
-            if (IsAlive()) {
-                isWandering = false;
-                agent.SetDestination(other.transform.position);
-                //agent.updateRotation = true;
-            }
-            
+            isWandering = false;
+            agent.SetDestination(other.transform.position);
+            //agent.updateRotation = true;
         }
 
-   
+        //}
+
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -165,6 +166,7 @@ public class EnemyMovement : MonoBehaviour, IKillable
     public void KillEntity()
     {
         GetComponent<BoxCollider>().enabled = false;
+        //GetComponent<SphereCollider>().enabled = false;
         anim.SetBool("Attack", false);
         StopAllCoroutines();
         agent.SetDestination(this.transform.position);
