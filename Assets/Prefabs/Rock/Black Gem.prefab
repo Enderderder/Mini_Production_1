@@ -112,7 +112,7 @@ MonoBehaviour:
   type: 2
   quality: 3
   spriteNeutral: {fileID: 21300000, guid: 2023a172084ea4249a1a97c2fca6f808, type: 3}
-  spriteHighlighted: {fileID: 21300000, guid: 2023a172084ea4249a1a97c2fca6f808, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 3015d661a122916449ec4555a11bfc57, type: 3}
   maxSize: 100
   strength: 0
   intellect: 0

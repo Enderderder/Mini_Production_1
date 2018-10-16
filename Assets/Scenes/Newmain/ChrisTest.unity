@@ -1556,6 +1556,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 140.992
       objectReference: {fileID: 0}
+    - target: {fileID: 114856501045117286, guid: 4e6553361b910fd44911ab17f0de1666,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
   m_IsPrefabAsset: 0
@@ -6032,6 +6037,11 @@ Prefab:
       propertyPath: conversationOrder.Array.data[0]
       value: Welcome to the village!
       objectReference: {fileID: 0}
+    - target: {fileID: 114856501045117286, guid: 4e6553361b910fd44911ab17f0de1666,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
   m_IsPrefabAsset: 0
@@ -6468,6 +6478,11 @@ Prefab:
         type: 2}
       propertyPath: conversationOrder.Array.data[0]
       value: Danger! Strong current
+      objectReference: {fileID: 0}
+    - target: {fileID: 114856501045117286, guid: 4e6553361b910fd44911ab17f0de1666,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
@@ -9047,6 +9062,11 @@ Prefab:
     - target: {fileID: 4259280981025700, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 58.086002
+      objectReference: {fileID: 0}
+    - target: {fileID: 114856501045117286, guid: 4e6553361b910fd44911ab17f0de1666,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
@@ -19551,6 +19571,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 140.992
       objectReference: {fileID: 0}
+    - target: {fileID: 114856501045117286, guid: 4e6553361b910fd44911ab17f0de1666,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
   m_IsPrefabAsset: 0
@@ -21759,6 +21784,11 @@ Prefab:
     - target: {fileID: 4259280981025700, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 163.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 114856501045117286, guid: 4e6553361b910fd44911ab17f0de1666,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e6553361b910fd44911ab17f0de1666, type: 2}
