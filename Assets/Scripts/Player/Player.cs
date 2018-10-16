@@ -327,7 +327,7 @@ public class Player : MonoBehaviour, IKillable
     {
         m_animator.SetBool("IsDead", true);
         StopAllCoroutines();
-        
+        GetComponent<PlayerMoveTemp>().enabled = false;
     }
     public bool IsAlive()
     {

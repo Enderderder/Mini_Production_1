@@ -108,15 +108,15 @@ public class EnemyMovement : StateMachine, IKillable
 
 
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (GetComponent<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player" && IsAlive())
-        {
-            isWandering = true;
-            //StartCoroutine(MoveToPos());
-        }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (GetComponent<Collider>().GetType() == typeof(SphereCollider) && other.tag == "Player" && IsAlive())
+    //    {
+    //        isWandering = true;
+    //        //StartCoroutine(MoveToPos());
+    //    }
   
-    }
+    //}
     //private void OnCollisionStay(Collision collision)
     //{
     //    if (collision.gameObject.tag == "Player")
