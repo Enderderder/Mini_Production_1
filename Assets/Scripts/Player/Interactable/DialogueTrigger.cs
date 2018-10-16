@@ -57,8 +57,10 @@ public class DialogueTrigger : MonoBehaviour {
             foreach (char item in conversationOrder[i])
             {
                 conversationText.text += item;
+                yield return new WaitForSeconds(LetterPauseTime);
             }
 
+            Debug.Log(i);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
             dialogueBox.SetActive(false);

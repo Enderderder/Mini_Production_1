@@ -64,11 +64,13 @@ public class Item : MonoBehaviour
             case ItemType.BlackStone:
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Defence++;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UpdateStatsPanel();
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().BlackGemsCollected++;
                 break;
 
             case ItemType.BlueStone:
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().lightAttackDmg++;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UpdateStatsPanel();
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().BlueGemsCollected++;
                 break;
         }
 

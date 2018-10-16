@@ -2838,7 +2838,7 @@ Prefab:
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
       propertyPath: conversationOrder.Array.data[1]
-      value: Whats going on? what are these creatures?
+      value: Whats going on? What are these creatures?
       objectReference: {fileID: 0}
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
@@ -2848,7 +2848,7 @@ Prefab:
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
       propertyPath: conversationOrder.Array.data[3]
-      value: This is getting weird
+      value: This is getting weird!
       objectReference: {fileID: 0}
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
@@ -2858,7 +2858,7 @@ Prefab:
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
       propertyPath: conversationOrder.Array.data[4]
-      value: This doesnt look good.
+      value: This doesnt look good!!
       objectReference: {fileID: 0}
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
@@ -2868,6 +2868,11 @@ Prefab:
     - target: {fileID: 1017627141850756, guid: d2770d3447aa9ce49af3864dccbc1b67, type: 2}
       propertyPath: m_Name
       value: DrawingsDialogueTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2770d3447aa9ce49af3864dccbc1b67, type: 2}
@@ -3518,7 +3523,7 @@ Prefab:
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
       propertyPath: conversationOrder.Array.data[2]
-      value: I didn't know i was holding this.
+      value: I didn't know I was holding this.
       objectReference: {fileID: 0}
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
@@ -3548,6 +3553,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.x
       value: 16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
+        type: 2}
+      propertyPath: LetterPauseTime
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2770d3447aa9ce49af3864dccbc1b67, type: 2}
