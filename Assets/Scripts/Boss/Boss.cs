@@ -19,6 +19,7 @@ public class Boss : MonoBehaviour, IKillable
     public float WaitTimeAfterTailAtk;
     [Header("Laser Attack")]
     public float AimingTime;
+    public float LaserAtkDmgPerTick;
     public float LaserChargeTime;
     public float RecoverTimeAfterLaser;
 
@@ -26,6 +27,7 @@ public class Boss : MonoBehaviour, IKillable
     public GameObject TailAttackOrigin;
     public GameObject RangeIndication;
     public GameObject LaserIndicationOrigin;
+    public GameObject LaserParticle;
 
     // The player object
     private GameObject m_playerTarget;
@@ -76,7 +78,16 @@ public class Boss : MonoBehaviour, IKillable
         {
             if (m_actionLock == false && m_hasAlerted)
             {
-                StartCoroutine(LaserAttackMove());
+                //StartCoroutine(LaserAttackMove());
+
+                if (CurrHealth > TotalHealth * 0.75)
+                {
+                    StartCoroutine(TailAttackMove());
+                }
+                else if (CurrHealth > 0)
+                {
+                    StartCoroutine(LaserAttackMove());
+                }
             }
         }
         else
@@ -213,6 +224,8 @@ public class Boss : MonoBehaviour, IKillable
         StopCoroutine(aimingCoroutine);
         StopCoroutine(rotationCoroutine);
 
+        Vector3 finalLaserAim = m_playerTarget.transform.position;
+
         // Charge up the laser
         yield return new WaitForSeconds(LaserChargeTime);
 
@@ -220,11 +233,63 @@ public class Boss : MonoBehaviour, IKillable
         m_animator.SetTrigger("LaserAttack");
         UndrawLaserIndication();
 
+        yield return new WaitForSeconds(1.0f);
+
+        // Rotate the particle
+        Vector3 aimDirection = finalLaserAim - LaserParticle.transform.position;
+        Quaternion laserRotation = Quaternion.LookRotation(aimDirection);
+        LaserParticle.transform.rotation = laserRotation;
+
+        // Draw the particle effect
+        ParticleSystem laserParticle = LaserParticle.GetComponent<ParticleSystem>();
+        laserParticle.Play();
+
+        // Wait for the laser travel time
+        yield return new WaitForSeconds(0.5f);
+
+        Coroutine laserDmgCoroutine = StartCoroutine(DealLaserDmgTick(finalLaserAim));
+
+        yield return new WaitForSeconds(laserParticle.time);
+
+        StopCoroutine(laserDmgCoroutine);
+
         // Wait for the recovery of shooting the laser
         yield return new WaitForSeconds(RecoverTimeAfterLaser);
 
         // Free the action lock as this action has finished
         m_actionLock = false;
+    }
+
+    /*
+     * Dealing damage every tick
+     */
+    public IEnumerator DealLaserDmgTick(Vector3 _damageLocation)
+    {
+        while (true)
+        {
+            // Get the direction of the laser being shoot
+            Vector3 aimDirection = _damageLocation - LaserIndicationOrigin.transform.position;
+
+            // Create a collider and see if it hits the player
+            float laserLength =
+                Vector3.Distance(LaserIndicationOrigin.transform.position, _damageLocation);
+
+            RaycastHit[] laserHits;
+            laserHits =
+                Physics.SphereCastAll(LaserIndicationOrigin.transform.position, 2.0f, aimDirection, laserLength);
+
+            foreach (RaycastHit hitResult in laserHits)
+            {
+                GameObject resultObj = hitResult.collider.gameObject;
+                if (resultObj.tag == "Player")
+                {
+                    resultObj.GetComponent<Player>().TakeDamage(LaserAtkDmgPerTick);
+                    break;
+                }
+            }
+
+            yield return null;
+        }
     }
 
     /*

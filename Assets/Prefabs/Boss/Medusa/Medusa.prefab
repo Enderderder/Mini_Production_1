@@ -111,9 +111,9 @@ GameObject:
   - component: {fileID: 4904389181776798}
   - component: {fileID: 198336634616526210}
   - component: {fileID: 199707162030242014}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Laser
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6299,14 +6299,16 @@ MonoBehaviour:
   Defense: 50
   AlertRange: 60
   TailAttackRange: 15
-  WaitTimeBeforeTailAtk: 2
+  WaitTimeBeforeTailAtk: 3
   WaitTimeAfterTailAtk: 5
   AimingTime: 4
+  LaserAtkDmgPerTick: 0.5
   LaserChargeTime: 2
   RecoverTimeAfterLaser: 5
   TailAttackOrigin: {fileID: 1503353807605096}
   RangeIndication: {fileID: 1181264471751898}
   LaserIndicationOrigin: {fileID: 1836215123010602}
+  LaserParticle: {fileID: 1016913228496998}
 --- !u!120 &120028592840763622
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -7724,8 +7726,8 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 0.2702713
+          time: 0.005001068
+          value: 0.29896545
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -7733,8 +7735,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.48916763
-          value: 0.9897431
+          time: 0.47667068
+          value: 0.788926
           inSlope: -1.2416406
           outSlope: -1.2416406
           tangentMode: 0
@@ -7742,13 +7744,13 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0.1891892
-          inSlope: 1
-          outSlope: 1
+          time: 0.9875
+          value: 0.6195205
+          inSlope: -0.3779908
+          outSlope: -0.3779908
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.23114938
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -10246,7 +10248,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0

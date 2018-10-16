@@ -36,5 +36,19 @@ public class PlayerCamera : MonoBehaviour
 
 		// Translate the camera to the offset
 		this.transform.position = playerPos + cameraOffset;
-	}
+
+        LookAtPlayer();
+    }
+
+    /*
+     * Rotate the camera towards the player
+     */
+    void LookAtPlayer()
+    {
+        Vector3 playerDirection = m_player.transform.position - this.transform.position;
+
+        Quaternion resultRotation = Quaternion.LookRotation(playerDirection);
+
+        this.transform.rotation = resultRotation;
+    }
 }
