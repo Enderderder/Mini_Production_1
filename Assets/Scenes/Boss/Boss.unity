@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LetterPauseTime: 0.1
+  nameOrder: []
   conversationOrder: []
 --- !u!4 &1016755615
 Transform:

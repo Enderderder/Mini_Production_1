@@ -6303,6 +6303,7 @@ MonoBehaviour:
   WaitTimeAfterTailAtk: 5
   AimingTime: 4
   LaserAtkDmgPerTick: 0.5
+  LaserDuration: 1
   LaserChargeTime: 2
   RecoverTimeAfterLaser: 5
   TailAttackOrigin: {fileID: 1503353807605096}

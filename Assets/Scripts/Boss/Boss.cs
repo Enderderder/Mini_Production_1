@@ -20,6 +20,7 @@ public class Boss : MonoBehaviour, IKillable
     [Header("Laser Attack")]
     public float AimingTime;
     public float LaserAtkDmgPerTick;
+    public float LaserDuration;
     public float LaserChargeTime;
     public float RecoverTimeAfterLaser;
 
@@ -78,16 +79,16 @@ public class Boss : MonoBehaviour, IKillable
         {
             if (m_actionLock == false && m_hasAlerted)
             {
-                //StartCoroutine(LaserAttackMove());
+                StartCoroutine(LaserAttackMove());
 
-                if (CurrHealth > TotalHealth * 0.75)
-                {
-                    StartCoroutine(TailAttackMove());
-                }
-                else if (CurrHealth > 0)
-                {
-                    StartCoroutine(LaserAttackMove());
-                }
+                //if (CurrHealth > TotalHealth * 0.75)
+                //{
+                //    StartCoroutine(TailAttackMove());
+                //}
+                //else if (CurrHealth > 0)
+                //{
+                //    StartCoroutine(LaserAttackMove());
+                //}
             }
         }
         else
@@ -249,7 +250,7 @@ public class Boss : MonoBehaviour, IKillable
 
         Coroutine laserDmgCoroutine = StartCoroutine(DealLaserDmgTick(finalLaserAim));
 
-        yield return new WaitForSeconds(laserParticle.time);
+        yield return new WaitForSeconds(LaserDuration);
 
         StopCoroutine(laserDmgCoroutine);
 
