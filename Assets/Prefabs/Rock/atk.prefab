@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4498023147156616}
+  - component: {fileID: 114214739909493158}
   m_Layer: 9
   m_Name: atk
   m_TagString: Untagged
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1175598103680250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.35, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224869169119995196}
@@ -101,6 +102,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943495303147094}
   m_Mesh: {fileID: 0}
+--- !u!114 &114214739909493158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1175598103680250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c131cc8dc2173904bbf26203496cd2ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114422334251955872
 MonoBehaviour:
   m_ObjectHideFlags: 1
