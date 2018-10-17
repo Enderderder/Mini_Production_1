@@ -23,7 +23,9 @@ public class DialogueTrigger : MonoBehaviour {
 
     private void Start()
     {
-        if (dialogueBox == null)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player)
         {
             dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
             conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
@@ -36,6 +38,10 @@ public class DialogueTrigger : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            dialogueBox = other.gameObject.GetComponent<Player>().dialogueBox;
+            conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
+            nameText = dialogueBox.transform.Find("NameText").GetComponent<Text>();
+            dialogueBox.SetActive(false);
             StartCoroutine(PopupDialogue(other.gameObject));
         }
     }
