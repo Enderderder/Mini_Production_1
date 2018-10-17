@@ -146,12 +146,12 @@ MonoBehaviour:
   textOrder:
   - After defeating the gorgon, the farmer goes through the portal that leads him
     back to the farm.
-  - 'Now knowing what he has done, the farmer thinks of all the rocks that he had
-    destroyed and consumed for his own personal gain. '
+  - Now knowing what he has done, the farmer thinks of all the rocks that he had destroyed
+    and consumed for his own personal gain, he writes a message trying to warn people
+    of what occured.
   - 'Overcome with grief and with no one left in the village, the farmer uses the
     power consumed from Medusa to turn himself into a rock where he will rest forever
     with the essence of his friends. '
-  - "\u201CThe more you have, the worse it is.\u201D"
 --- !u!4 &361599533
 Transform:
   m_ObjectHideFlags: 0
