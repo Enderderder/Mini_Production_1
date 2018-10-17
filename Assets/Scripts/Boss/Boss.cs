@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour, IKillable
 {
@@ -13,6 +14,8 @@ public class Boss : MonoBehaviour, IKillable
     [Header("Configuration")]
     [Header("Alert")]
     public float AlertRange;
+    [Header("Taunting")]
+    public float TauntingTime;
     [Header("Tail Attack")]
     public float TailAttackRange;
     public float WaitTimeBeforeTailAtk;
@@ -21,7 +24,6 @@ public class Boss : MonoBehaviour, IKillable
     public float AimingTime;
     public float LaserAtkDmgPerTick;
     public float LaserDuration;
-    public float LaserChargeTime;
     public float RecoverTimeAfterLaser;
 
     [Header("Reference")]
@@ -29,9 +31,17 @@ public class Boss : MonoBehaviour, IKillable
     public GameObject RangeIndication;
     public GameObject LaserIndicationOrigin;
     public GameObject LaserParticle;
+    public GameObject HealthBar;
+    public GameObject TailAttackSound;
 
     // The player object
     private GameObject m_playerTarget;
+
+    // Laser attack standing location
+    private GameObject m_laserAtkStandingLocation;
+
+    // The light of the portal
+    private GameObject m_portalLight;
 
     // The Animator
     private Animator m_animator;
@@ -42,6 +52,7 @@ public class Boss : MonoBehaviour, IKillable
 
     private bool m_actionLock;
     private bool m_hasAlerted;
+    private bool m_hasDeadTaunted;
 
     /************************************************************************/
     
@@ -61,40 +72,86 @@ public class Boss : MonoBehaviour, IKillable
         // Start with un-alert
         m_hasAlerted = false;
 
+        m_hasDeadTaunted = false;
+
         // Set the health to full at the beginning
         CurrHealth = TotalHealth;
 
         // Find the target
         m_playerTarget = GameObject.FindGameObjectWithTag("Player");
+
+        // Get the standing location for when shooting laser
+        m_laserAtkStandingLocation = GameObject.Find("BossLaserStandingLocation");
+
+        // Get the portal light
+        m_portalLight = GameObject.Find("PortalLight");
+        m_portalLight.SetActive(false);
+
+        UpdateHealthBar();
     }
 	void Update ()
     {
+        // Check if the player exists
+        if (m_playerTarget == null)
+        {
+            // Try to find the player again
+            m_playerTarget = GameObject.FindGameObjectWithTag("Player");
+            return;
+        }
+
+        // Check the alert detection
         if (!m_hasAlerted && DistanceToPlayer() <= AlertRange)
         {
             m_hasAlerted = true;
+
+            // Taunts the player when alerted
+            StartCoroutine(Taunting());
         }
 
-        // Check if the player exist
-        if (m_playerTarget)
+        // Check if the player is alive
+        if (m_playerTarget.GetComponent<Player>().IsAlive())
         {
             if (m_actionLock == false && m_hasAlerted)
             {
-                StartCoroutine(LaserAttackMove());
+                if (CurrHealth > TotalHealth * 0.50)
+                {
+                    int randNum = Random.Range(0, 5);
 
-                //if (CurrHealth > TotalHealth * 0.75)
-                //{
-                //    StartCoroutine(TailAttackMove());
-                //}
-                //else if (CurrHealth > 0)
-                //{
-                //    StartCoroutine(LaserAttackMove());
-                //}
+                    if (randNum > 1)
+                    {
+                        StartCoroutine(TailAttackMove());
+                    }
+                    else
+                    {
+                        StartCoroutine(Taunting());
+                    }
+                }
+                else if (CurrHealth > 0)
+                {
+                    int randNum = Random.Range(0, 10);
+
+                    if (randNum > 5)
+                    {
+                        StartCoroutine(LaserAttackMove());
+                    }
+                    else if (randNum > 1)
+                    {
+                        StartCoroutine(TailAttackMove());
+                    }
+                    else
+                    {
+                        StartCoroutine(Taunting());
+                    }
+                }
             }
         }
         else
         {
-            // Try to find the player again
-            m_playerTarget = GameObject.FindGameObjectWithTag("Player");
+            if (m_hasDeadTaunted == false)
+            {
+                StartCoroutine(Taunting());
+                m_hasDeadTaunted = true;
+            }
         }
 
         // Check if the agent has reach the destination
@@ -108,8 +165,6 @@ public class Boss : MonoBehaviour, IKillable
                 }
             }
         }
-
-
     }
 
     /************************************************************************/
@@ -180,6 +235,9 @@ public class Boss : MonoBehaviour, IKillable
         // Playe the attack animation
         m_animator.SetTrigger("TailAttack");
 
+        // Play the sound
+        TailAttackSound.GetComponent<AudioSource>().Play();
+
         // Create a box cast
         RaycastHit[] tailAttackHits;
         Vector3 boxBound = new Vector3(TailAttackRange, 1.0f, TailAttackRange);
@@ -212,6 +270,20 @@ public class Boss : MonoBehaviour, IKillable
         // Lock any action
         m_actionLock = true;
 
+        m_navAgent.SetDestination(m_laserAtkStandingLocation.transform.position);
+        bool isAtLocation = false;
+        while (isAtLocation == false)
+        {
+            // Check if medusa is close enough to the location
+            Vector3 finalLocation = m_laserAtkStandingLocation.transform.position;
+            if (Vector3.Distance(this.transform.position, finalLocation) < 2.0f)
+            {
+                isAtLocation = true;
+            }
+            yield return null;
+        }
+        m_navAgent.SetDestination(this.transform.position);
+
         // Keep rotate towards player to aim
         Coroutine rotationCoroutine = StartCoroutine(RotateTowardsPlayer());
 
@@ -221,23 +293,18 @@ public class Boss : MonoBehaviour, IKillable
         // Wait for the time to aim
         yield return new WaitForSeconds(AimingTime);
 
-        // Stop aiming as about to fire
+        // Turn off the indication
         StopCoroutine(aimingCoroutine);
-        StopCoroutine(rotationCoroutine);
-
-        Vector3 finalLaserAim = m_playerTarget.transform.position;
-
-        // Charge up the laser
-        yield return new WaitForSeconds(LaserChargeTime);
 
         // Play the animation and undraw the indication asap
         m_animator.SetTrigger("LaserAttack");
         UndrawLaserIndication();
 
+        // Wait for the animation charge
         yield return new WaitForSeconds(1.0f);
 
         // Rotate the particle
-        Vector3 aimDirection = finalLaserAim - LaserParticle.transform.position;
+        Vector3 aimDirection = m_playerTarget.transform.position - LaserParticle.transform.position;
         Quaternion laserRotation = Quaternion.LookRotation(aimDirection);
         LaserParticle.transform.rotation = laserRotation;
 
@@ -248,11 +315,13 @@ public class Boss : MonoBehaviour, IKillable
         // Wait for the laser travel time
         yield return new WaitForSeconds(0.5f);
 
-        Coroutine laserDmgCoroutine = StartCoroutine(DealLaserDmgTick(finalLaserAim));
-
+        // Apply damage
+        Coroutine laserDmgCoroutine = StartCoroutine(ShootOutLaser());
         yield return new WaitForSeconds(LaserDuration);
-
         StopCoroutine(laserDmgCoroutine);
+
+        // Stop aiming as about to fire
+        StopCoroutine(rotationCoroutine);
 
         // Wait for the recovery of shooting the laser
         yield return new WaitForSeconds(RecoverTimeAfterLaser);
@@ -262,32 +331,79 @@ public class Boss : MonoBehaviour, IKillable
     }
 
     /*
+     *	Stop moving and do the laser attack
+     */
+    public IEnumerator Taunting()
+    {
+        // Lock the action
+        m_actionLock = true;
+
+        // Keep Rotating towards player
+        Coroutine rotationCoroutine = StartCoroutine(RotateTowardsPlayer());
+
+        // Start the animation
+        m_animator.SetTrigger("Taunt");
+
+        // Wait till the animation finishes
+        yield return new WaitForSeconds(TauntingTime);
+
+        // Stop Rotating
+        StopCoroutine(rotationCoroutine);
+
+        // Small idle time
+        yield return new WaitForSeconds(2.0f);
+
+        // Free the action lock as this action has finished
+        m_actionLock = false;
+    }
+
+    /*
      * Dealing damage every tick
      */
-    public IEnumerator DealLaserDmgTick(Vector3 _damageLocation)
+    public IEnumerator ShootOutLaser()
     {
+        Vector3 aimLocation;
+        Vector3 aimDirection;
+
         while (true)
         {
+            // Get the newest player location
+            aimLocation = m_playerTarget.transform.position;
+
             // Get the direction of the laser being shoot
-            Vector3 aimDirection = _damageLocation - LaserIndicationOrigin.transform.position;
+            aimDirection = Vector3.Normalize(aimLocation - LaserIndicationOrigin.transform.position);
+
+            // Rotate the laser as shooting
+            Quaternion laserRotation = Quaternion.LookRotation(aimDirection);
+            LaserParticle.transform.rotation = laserRotation;
+
+            // Shoot out a ray
+            RaycastHit rayHit;
+            Physics.Raycast(LaserIndicationOrigin.transform.position, aimDirection, out rayHit);
+
+            GameObject hitObj = rayHit.collider.gameObject;
+            if (hitObj.tag == "Player")
+            {
+                hitObj.GetComponent<Player>().TakeDamage(LaserAtkDmgPerTick * Time.deltaTime);
+            }
 
             // Create a collider and see if it hits the player
-            float laserLength =
-                Vector3.Distance(LaserIndicationOrigin.transform.position, _damageLocation);
+//             float laserLength =
+//                 Vector3.Distance(LaserIndicationOrigin.transform.position, aimLocation);
+// 
+//             RaycastHit[] laserHits;
+//             laserHits =
+//                 Physics.SphereCastAll(LaserIndicationOrigin.transform.position, 2.0f, aimDirection, laserLength);
 
-            RaycastHit[] laserHits;
-            laserHits =
-                Physics.SphereCastAll(LaserIndicationOrigin.transform.position, 2.0f, aimDirection, laserLength);
-
-            foreach (RaycastHit hitResult in laserHits)
-            {
-                GameObject resultObj = hitResult.collider.gameObject;
-                if (resultObj.tag == "Player")
-                {
-                    resultObj.GetComponent<Player>().TakeDamage(LaserAtkDmgPerTick);
-                    break;
-                }
-            }
+//             foreach (RaycastHit hitResult in laserHits)
+//             {
+//                 GameObject resultObj = hitResult.collider.gameObject;
+//                 if (resultObj.tag == "Player")
+//                 {
+//                     resultObj.GetComponent<Player>().TakeDamage(LaserAtkDmgPerTick);
+//                     break;
+//                 }
+//             }
 
             yield return null;
         }
@@ -316,11 +432,21 @@ public class Boss : MonoBehaviour, IKillable
         m_animator.SetBool("IsWalking", false);
     }
 
+    /*
+     * Aiming the laser beam at player
+     */
     public IEnumerator AimingLaser()
     {
         while (true)
         {
-            DrawLaserIndication(m_playerTarget.transform.position);
+            Vector3 aimDirection = Vector3.Normalize(m_playerTarget.transform.position - LaserParticle.transform.position);
+
+            // Shoot out a ray that hit something and get the position
+            RaycastHit hitResult;
+            Physics.Raycast(LaserIndicationOrigin.transform.position, aimDirection, out hitResult);
+            Vector3 hitPoint = hitResult.point;
+
+            DrawLaserIndication(hitPoint);
 
             yield return null;
         }
@@ -340,6 +466,8 @@ public class Boss : MonoBehaviour, IKillable
         // Give some time for the animation to play as
         // well as slow down the pace
         yield return new WaitForSeconds(4.0f);
+
+        m_portalLight.SetActive(true);
 
         Debug.Log("The boss has been defeated");
     }
@@ -422,12 +550,21 @@ public class Boss : MonoBehaviour, IKillable
         }
     }
 
+    /*
+     * Update the medusa health bar
+     */
+    private void UpdateHealthBar()
+    {
+        HealthBar.GetComponent<Slider>().value = CurrHealth / TotalHealth;
+    }
+
     /* Interface Implementation =================================*/
 
     // IKillable
     public void TakeDamage(float _value)
     {
         CurrHealth -= _value;
+        UpdateHealthBar();
         CheckDeath();
     }
     public void CheckDeath()

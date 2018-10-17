@@ -18,7 +18,18 @@ public class DialogueTrigger : MonoBehaviour {
 
     private void Awake()
     {
-        playerCam = GameObject.Find("PlayerCam");
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera");
+    }
+
+    private void Start()
+    {
+        if (dialogueBox == null)
+        {
+            dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
+            conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
+            nameText = dialogueBox.transform.Find("NameText").GetComponent<Text>();
+            dialogueBox.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
