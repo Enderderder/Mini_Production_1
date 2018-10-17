@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 
 public class Player : MonoBehaviour, IKillable
@@ -24,6 +25,9 @@ public class Player : MonoBehaviour, IKillable
     public AudioSource Slash;
     public AudioSource Sweep;
     public AudioSource Pickup;
+    public Image gameover;
+    private Image[] gameoverchild;
+
 
     // Behaviour Flags ==============
     private bool m_canLightAttack;
@@ -92,10 +96,16 @@ public class Player : MonoBehaviour, IKillable
         m_canLightAttack = true;
         m_canBigAttack = true;
         killCount = 0;
+        gameoverchild = this.gameover.GetComponentsInChildren<Image>();
+        foreach (Image ui in gameoverchild) {
+            ui.DOFade(0, 0);
+        }
+        gameover.gameObject.SetActive(false);
     }
 
 	void Update()
 	{
+        
 
         if (darkaura)
         {
@@ -165,9 +175,8 @@ public class Player : MonoBehaviour, IKillable
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item") //If we collide with an item that we can pick up
-            Pickup.Play();
-
         {
+            Pickup.Play();
             inventory.AddItem(other.GetComponent<Item>()); //Adds the item to the inventory.
             Destroy(other.gameObject);
         }
@@ -330,6 +339,14 @@ public class Player : MonoBehaviour, IKillable
         m_animator.SetBool("IsDead", true);
         StopAllCoroutines();
         GetComponent<PlayerMoveTemp>().enabled = false;
+        if (m_animator.GetCurrentAnimatorStateInfo(0).IsName("Death") && m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            gameover.gameObject.SetActive(true);
+            foreach (Image ui in gameoverchild)
+            {
+                ui.DOFade(1, 1);
+            }
+        }
     }
     public bool IsAlive()
     {

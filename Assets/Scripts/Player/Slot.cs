@@ -29,6 +29,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public Sprite slotHighlight;
 
+
     #endregion
 
     #region properties
@@ -81,18 +82,23 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         RectTransform slotRect = GetComponent<RectTransform>();
 
         //Creates a reference to the stackTxt's recttransform
-        RectTransform txtRect = stackTxt.GetComponent<RectTransform>();
+        if (stackTxt != null) {
+            RectTransform txtRect = stackTxt.GetComponent<RectTransform>();
+            //Sets the actual size of the txtRect
+            txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotRect.sizeDelta.x);
+            txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotRect.sizeDelta.y);
+        }
 
         //Calculates the scalefactor of the text by taking 60% of the slots width
         int txtScleFactor = (int)(slotRect.sizeDelta.x * 0.60);
 
         //Sets the min and max textSize of the stackTxt
-        stackTxt.resizeTextMaxSize = txtScleFactor;
-        stackTxt.resizeTextMinSize = txtScleFactor;
+        if (stackTxt != null) {
+            stackTxt.resizeTextMaxSize = txtScleFactor;
+            stackTxt.resizeTextMinSize = txtScleFactor;
+        }
 
-        //Sets the actual size of the txtRect
-        txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotRect.sizeDelta.x);
-        txtRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotRect.sizeDelta.y);
+        
 	}
 	
     /// <summary>
