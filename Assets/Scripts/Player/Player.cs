@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 
 public class Player : MonoBehaviour, IKillable
@@ -24,6 +26,9 @@ public class Player : MonoBehaviour, IKillable
     public AudioSource Slash;
     public AudioSource Sweep;
     public AudioSource Pickup;
+    public Image gameover;
+    private Image[] gameoverchild;
+
 
     // Behaviour Flags ==============
     private bool m_canLightAttack;
@@ -92,10 +97,16 @@ public class Player : MonoBehaviour, IKillable
         m_canLightAttack = true;
         m_canBigAttack = true;
         killCount = 0;
+        gameoverchild = this.gameover.GetComponentsInChildren<Image>();
+        foreach (Image ui in gameoverchild) {
+            ui.DOFade(0, 0);
+        }
+        gameover.gameObject.SetActive(false);
     }
 
 	void Update()
 	{
+        
 
         if (darkaura)
         {
@@ -165,9 +176,8 @@ public class Player : MonoBehaviour, IKillable
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item") //If we collide with an item that we can pick up
-            Pickup.Play();
-
         {
+            Pickup.Play();
             inventory.AddItem(other.GetComponent<Item>()); //Adds the item to the inventory.
             Destroy(other.gameObject);
         }
@@ -328,8 +338,27 @@ public class Player : MonoBehaviour, IKillable
     public void KillEntity()
     {
         m_animator.SetBool("IsDead", true);
-        StopAllCoroutines();
+        //StopAllCoroutines();
         GetComponent<PlayerMoveTemp>().enabled = false;
+        if (m_animator.GetCurrentAnimatorStateInfo(0).IsName("Death") && m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            gameover.gameObject.SetActive(true);
+            if (SceneManager.GetActiveScene().name == "Boss")
+            {
+
+                foreach (Image ui in gameoverchild)
+                {
+                    ui.DOFade(1, 5);
+                }
+            }
+            else
+            {
+                foreach (Image ui in gameoverchild)
+                {
+                    ui.DOFade(1, 1);
+                }
+            }
+        }
     }
     public bool IsAlive()
     {
@@ -338,6 +367,24 @@ public class Player : MonoBehaviour, IKillable
             return false;
         }
         return true;
+    }
+
+    public void respawn()
+    {
+        CurrHealth = 100;
+        UpdateHealthBar();
+        m_animator.SetBool("IsDead", false);
+        GetComponent<PlayerMoveTemp>().enabled = true;
+        foreach (Image ui in gameoverchild)
+        {
+            ui.DOFade(0, 1);
+        }
+        gameover.gameObject.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name == "Boss")
+        {
+            SceneManager.LoadScene("ChrisTest");
+        }
     }
 
 

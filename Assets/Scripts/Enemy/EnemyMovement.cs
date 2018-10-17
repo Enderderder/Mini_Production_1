@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.Rendering.PostProcessing;
 
 public class EnemyMovement : StateMachine, IKillable
@@ -35,6 +36,7 @@ public class EnemyMovement : StateMachine, IKillable
     public Transform[] PatrolPoints;
     Transform Target = null;
     public float PatrolPointThreshold = 0.5f;
+    public GameObject damagetxtobject;
 
 
     void Awake()
@@ -172,7 +174,10 @@ public class EnemyMovement : StateMachine, IKillable
     public void TakeDamage(float _value)
     {
         currHealth -= _value;
+        damagetxtobject.GetComponentInChildren<TextMeshPro>().text = "-" + _value;
+        GameObject texteffect = Instantiate(damagetxtobject, this.transform);
         StartCoroutine(DamageEffect());
+        Destroy(texteffect, 2);
         CheckDeath();
     }
     public void CheckDeath()
@@ -397,17 +402,14 @@ public class EnemyMovement : StateMachine, IKillable
         {
             EnemyMovement npc = (EnemyMovement)Machine;
             CurrentSpeed = npc.agent.speed;
-            npc.agent.speed *= 1.5f;
+            //npc.agent.speed *= 1.5f;
         }
 
         public override void OnUpdate()
         {
             EnemyMovement npc = (EnemyMovement)Machine;
             Transform target = npc.Target;
-            if (this.Name == "Chase state")
-            {
-                npc.agent.speed = 10;
-            }
+
             npc.agent.SetDestination(target.position);
         }
     }

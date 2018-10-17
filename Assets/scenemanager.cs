@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class Gameover : MonoBehaviour {
 
-    public void GotoMain()
+public class scenemanager : MonoBehaviour
+{
+
+    public void loadmenu()
     {
         SceneManager.LoadScene(0);
-        Destroy(this.transform.root.gameObject);
+        Destroy(transform.root.gameObject);
     }
 
     public void respawn()

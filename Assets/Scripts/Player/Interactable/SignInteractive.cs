@@ -7,10 +7,12 @@ using DG.Tweening;
 public class SignInteractive : MonoBehaviour {
 
     public float LetterPauseTime;
+    public string[] nameOrder;
     public string[] conversationOrder;
 
     private int currDialogue;
     private GameObject dialogueBox;
+    private Text nameText;
     private Text conversationText;
     private GameObject pressE_UI;
 
@@ -48,8 +50,14 @@ public class SignInteractive : MonoBehaviour {
 
         dialogueBox.SetActive(true);
 
+
         for (int i = 0; i < conversationOrder.Length; i++)
         {
+            if (nameOrder.Length > i)
+            {
+                nameText.text = nameOrder[i] + ":";
+            }
+
             conversationText.text = "";
             foreach (char item in conversationOrder[i])
             {

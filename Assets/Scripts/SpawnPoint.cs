@@ -21,4 +21,10 @@ public class SpawnPoint : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void playerrespawn()
+    {
+        GameObject.FindGameObjectWithTag("Player").transform.position = transform.position;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().respawn();
+    }
 }
