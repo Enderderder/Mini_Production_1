@@ -44,7 +44,7 @@ public class MainMenuControl : MonoBehaviour
 	/** UI Button Functions */
 	public void StartGame()
 	{
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Intro");
 	}
 	public void Controls()
 	{
