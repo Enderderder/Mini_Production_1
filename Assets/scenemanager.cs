@@ -5,16 +5,17 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class scenemanager : MonoBehaviour {
+public class scenemanager : MonoBehaviour
+{
 
-	public void loadmenu()
+    public void loadmenu()
     {
         SceneManager.LoadScene(0);
         Destroy(transform.root.gameObject);
     }
 
-    public void Quitgame()
+    public void respawn()
     {
-        Application.Quit();
+        GameObject.Find("Spawnpoint").GetComponent<SpawnPoint>().playerrespawn();
     }
 }

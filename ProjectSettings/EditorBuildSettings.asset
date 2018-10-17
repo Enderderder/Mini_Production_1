@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalBuildScene/MainMenu.unity
     guid: cd17e2bbd4724764c9f090087ce57071
   - enabled: 1
-    path: Assets/Scenes/FinalBuildScene/EndGame.unity
-    guid: 3aad0949407f5ed4884b4ca54295acc2
-  - enabled: 1
     path: Assets/Scenes/Intro.unity
     guid: c524ebf680492bf4aab55a95c0994d09
   - enabled: 1
@@ -20,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boss/Boss.unity
     guid: 4a6417e7a30a7c04fb66e4dbdf36bf06
+  - enabled: 1
+    path: Assets/Scenes/FinalBuildScene/EndGame.unity
+    guid: 3aad0949407f5ed4884b4ca54295acc2
   m_configObjects: {}
