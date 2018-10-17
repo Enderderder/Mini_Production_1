@@ -24,6 +24,9 @@ public class Player : MonoBehaviour, IKillable
     public AudioSource Slash;
     public AudioSource Sweep;
     public AudioSource Pickup;
+    public Image gameover;
+    private float targetAlpha;
+    public float FadeRate;
 
     // Behaviour Flags ==============
     private bool m_canLightAttack;
@@ -92,11 +95,19 @@ public class Player : MonoBehaviour, IKillable
         m_canLightAttack = true;
         m_canBigAttack = true;
         killCount = 0;
+        
     }
 
 	void Update()
 	{
-
+        FadeOut();
+        Color curColor = this.gameover.color;
+        float alphaDiff = Mathf.Abs(curColor.a - this.targetAlpha);
+        if (alphaDiff > 0.0001f)
+        {
+            curColor.a = Mathf.Lerp(curColor.a, targetAlpha, this.FadeRate * Time.deltaTime);
+            this.gameover.color = curColor;
+        }
         if (darkaura)
         {
             effect.SetActive(true);
@@ -340,6 +351,15 @@ public class Player : MonoBehaviour, IKillable
         return true;
     }
 
+    public void FadeOut()
+    {
+        this.targetAlpha = 0.0f;
+    }
+
+    public void FadeIn()
+    {
+        this.targetAlpha = 1.0f;
+    }
 
     // ============================================================
 

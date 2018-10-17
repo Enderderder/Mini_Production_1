@@ -397,17 +397,14 @@ public class EnemyMovement : StateMachine, IKillable
         {
             EnemyMovement npc = (EnemyMovement)Machine;
             CurrentSpeed = npc.agent.speed;
-            npc.agent.speed *= 1.5f;
+            //npc.agent.speed *= 1.5f;
         }
 
         public override void OnUpdate()
         {
             EnemyMovement npc = (EnemyMovement)Machine;
             Transform target = npc.Target;
-            if (this.Name == "Chase state")
-            {
-                npc.agent.speed = 10;
-            }
+
             npc.agent.SetDestination(target.position);
         }
     }
