@@ -337,7 +337,7 @@ public class Player : MonoBehaviour, IKillable
     public void KillEntity()
     {
         m_animator.SetBool("IsDead", true);
-        StopAllCoroutines();
+        //StopAllCoroutines();
         GetComponent<PlayerMoveTemp>().enabled = false;
         if (m_animator.GetCurrentAnimatorStateInfo(0).IsName("Death") && m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
@@ -355,6 +355,19 @@ public class Player : MonoBehaviour, IKillable
             return false;
         }
         return true;
+    }
+
+    public void respawn()
+    {
+        CurrHealth = 100;
+        UpdateHealthBar();
+        m_animator.SetBool("IsDead", false);
+        GetComponent<PlayerMoveTemp>().enabled = true;
+        foreach (Image ui in gameoverchild)
+        {
+            ui.DOFade(0, 1);
+        }
+        gameover.gameObject.SetActive(false);
     }
 
 

@@ -10,4 +10,9 @@ public class Gameover : MonoBehaviour {
         SceneManager.LoadScene(0);
         Destroy(this.transform.root.gameObject);
     }
+
+    public void respawn()
+    {
+        GameObject.Find("Spawnpoint").GetComponent<SpawnPoint>().playerrespawn();
+    }
 }

@@ -4970,7 +4970,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114119790451745232}
-        m_MethodName: loadmenu
+        m_MethodName: respawn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5626,7 +5626,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114119790451745232}
-        m_MethodName: Quitgame
+        m_MethodName: loadmenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
