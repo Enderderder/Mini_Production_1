@@ -344,7 +344,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1826768527027328}
   m_LocalRotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.215, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0283495, y: 1.02835, z: 1.02835}
   m_Children:
   - {fileID: 4185691237206040}
@@ -490,7 +490,7 @@ MonoBehaviour:
   itemName: Blue Stone
   description: 'Use: Increase Your Strength'
   effect: {fileID: 1040985154972224, guid: 597b97fee9da62042a3905a29bdf9b90, type: 2}
-  effecttxt: {fileID: 0}
+  effecttxt: {fileID: 1175598103680250, guid: 223142907ec1d5546ada1874dba7951c, type: 2}
 --- !u!198 &198064672703807204
 ParticleSystem:
   m_ObjectHideFlags: 1
