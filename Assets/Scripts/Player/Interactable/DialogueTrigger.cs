@@ -18,12 +18,13 @@ public class DialogueTrigger : MonoBehaviour {
 
     private void Awake()
     {
-        playerCam = GameObject.FindGameObjectWithTag("MainCamera");
+       
     }
 
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera");
 
         if (player)
         {
@@ -103,6 +104,11 @@ public class DialogueTrigger : MonoBehaviour {
 
     private void Update()
     {
+        if (playerCam == null)
+        {
+            playerCam = GameObject.FindGameObjectWithTag("MainCamera");
+        }
+        
         if (dialogueBox == null)
         {
             dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
