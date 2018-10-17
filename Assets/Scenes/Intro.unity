@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43719295, g: 0.48493153, b: 0.56520295, a: 1}
+  m_IndirectSpecularColor: {r: 0.43719333, g: 0.48493212, b: 0.56520367, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3043,7 +3043,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1017627141850756, guid: d2770d3447aa9ce49af3864dccbc1b67, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114506537339369490, guid: d2770d3447aa9ce49af3864dccbc1b67,
         type: 2}
@@ -6415,7 +6415,7 @@ SpriteRenderer:
   m_Size: {x: 2.05, y: 3.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1914003828
