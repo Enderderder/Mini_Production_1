@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 
 public class Player : MonoBehaviour, IKillable
@@ -342,9 +343,20 @@ public class Player : MonoBehaviour, IKillable
         if (m_animator.GetCurrentAnimatorStateInfo(0).IsName("Death") && m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
             gameover.gameObject.SetActive(true);
-            foreach (Image ui in gameoverchild)
+            if (SceneManager.GetActiveScene().name == "Boss")
             {
-                ui.DOFade(1, 1);
+
+                foreach (Image ui in gameoverchild)
+                {
+                    ui.DOFade(1, 5);
+                }
+            }
+            else
+            {
+                foreach (Image ui in gameoverchild)
+                {
+                    ui.DOFade(1, 1);
+                }
             }
         }
     }
@@ -368,6 +380,11 @@ public class Player : MonoBehaviour, IKillable
             ui.DOFade(0, 1);
         }
         gameover.gameObject.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name == "Boss")
+        {
+            SceneManager.LoadScene("ChrisTest");
+        }
     }
 
 
