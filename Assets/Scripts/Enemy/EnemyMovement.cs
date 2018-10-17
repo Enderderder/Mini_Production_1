@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.Rendering.PostProcessing;
 
 public class EnemyMovement : StateMachine, IKillable
@@ -35,6 +36,7 @@ public class EnemyMovement : StateMachine, IKillable
     public Transform[] PatrolPoints;
     Transform Target = null;
     public float PatrolPointThreshold = 0.5f;
+    public GameObject damagetxtobject;
 
 
     void Awake()
@@ -172,7 +174,10 @@ public class EnemyMovement : StateMachine, IKillable
     public void TakeDamage(float _value)
     {
         currHealth -= _value;
+        damagetxtobject.GetComponentInChildren<TextMeshPro>().text = "-" + _value;
+        GameObject texteffect = Instantiate(damagetxtobject, this.transform);
         StartCoroutine(DamageEffect());
+        Destroy(texteffect, 2);
         CheckDeath();
     }
     public void CheckDeath()

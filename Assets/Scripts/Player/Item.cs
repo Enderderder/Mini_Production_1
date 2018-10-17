@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public enum ItemType {MANA, HEALTH, BlackStone, BlueStone, WEAPON};
 public enum Quality {COMMON,UNCOMMON,RARE,EPIC,LEGENDARY,ARTIFACT}
@@ -48,6 +49,8 @@ public class Item : MonoBehaviour
 
     public GameObject effect;
 
+    public GameObject effecttxt;
+
     /// <summary>
     /// Uses the item
     /// </summary>
@@ -63,6 +66,9 @@ public class Item : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UpdateHealthBar();
                 GameObject effectplay = Instantiate(effect, GameObject.FindGameObjectWithTag("Player").transform);
                 Destroy(effectplay, 2);
+                GameObject texteffect = Instantiate(effecttxt, GameObject.FindGameObjectWithTag("Player").transform);
+               
+                Destroy(texteffect, 2);
                 break;
 
             case ItemType.BlackStone:
@@ -71,6 +77,8 @@ public class Item : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().BlackGemsCollected++;
                 GameObject effectplay2 = Instantiate(effect, GameObject.FindGameObjectWithTag("Player").transform);
                 Destroy(effectplay2, 2);
+                GameObject texteffect2 = Instantiate(effecttxt, GameObject.FindGameObjectWithTag("Player").transform);
+                Destroy(texteffect2, 2);
                 break;
 
             case ItemType.BlueStone:
@@ -79,6 +87,8 @@ public class Item : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().BlueGemsCollected++;
                 GameObject effectplay3 = Instantiate(effect, GameObject.FindGameObjectWithTag("Player").transform);
                 Destroy(effectplay3, 2);
+                GameObject texteffect3 = Instantiate(effecttxt, GameObject.FindGameObjectWithTag("Player").transform);
+                Destroy(texteffect3, 2);
                 break;
         }
 

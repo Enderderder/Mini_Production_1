@@ -490,6 +490,7 @@ MonoBehaviour:
   itemName: Blue Stone
   description: 'Use: Increase Your Strength'
   effect: {fileID: 1040985154972224, guid: 597b97fee9da62042a3905a29bdf9b90, type: 2}
+  effecttxt: {fileID: 0}
 --- !u!198 &198064672703807204
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -121,6 +121,7 @@ MonoBehaviour:
   itemName: Black Stone
   description: 'Use: Increase Your Def'
   effect: {fileID: 1532721489327470, guid: 8c84e4537f74b0e46820db60fce6262a, type: 2}
+  effecttxt: {fileID: 0}
 --- !u!114 &114788631766367026
 MonoBehaviour:
   m_ObjectHideFlags: 1

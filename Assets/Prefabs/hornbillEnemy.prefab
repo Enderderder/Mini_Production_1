@@ -458,6 +458,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   PatrolPointThreshold: 0.5
+  damagetxtobject: {fileID: 0}
   PostVol: {fileID: 0}
 --- !u!114 &114850243624435686
 MonoBehaviour:

@@ -412,7 +412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1146847847157968
 GameObject:
   m_ObjectHideFlags: 1
@@ -4819,6 +4819,7 @@ MonoBehaviour:
   Slash: {fileID: 82014826846529228}
   Sweep: {fileID: 82085853519905980}
   Pickup: {fileID: 82187199600909656}
+  gameover: {fileID: 114907250676133604}
   inventory: {fileID: 114844238472981080}
   dialogueBox: {fileID: 1242309088775414}
 --- !u!114 &114266664433918046
