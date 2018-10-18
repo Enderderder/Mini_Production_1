@@ -520,6 +520,11 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114899053029165100, guid: 7d478ca6fa19d4a4191cda8b35ea86f2,
+        type: 2}
+      propertyPath: CurrHealth
+      value: 3000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d478ca6fa19d4a4191cda8b35ea86f2, type: 2}
   m_IsPrefabAsset: 0

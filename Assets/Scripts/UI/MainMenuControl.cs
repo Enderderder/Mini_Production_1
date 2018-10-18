@@ -19,6 +19,10 @@ public class MainMenuControl : MonoBehaviour
 		MainMenu.SetActive(true);
 		ControlPanel.SetActive(false);
 		QuitConfirm.SetActive(false);
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+        }
 	}
 	void Update()
 	{

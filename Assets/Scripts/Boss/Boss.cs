@@ -465,11 +465,9 @@ public class Boss : MonoBehaviour, IKillable
 
         // Give some time for the animation to play as
         // well as slow down the pace
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(2.0f);
 
         m_portalLight.SetActive(true);
-
-        Debug.Log("The boss has been defeated");
     }
 
     /*
