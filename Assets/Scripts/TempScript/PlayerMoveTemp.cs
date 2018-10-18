@@ -11,20 +11,29 @@ public class PlayerMoveTemp : MonoBehaviour
     private Ray rotationRay;
     private Animator anim;
 
+    private GameObject playerCamera;
+
 	// Use this for initialization
 	void Start()
 	{
 		m_rigidBody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-	}
+        playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
+    }
 
 	void Update()
 	{
+        if (playerCamera == null)
+        {
+            playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        }
+
 		// Create a plane where player at
 		Plane playerPlane = new Plane(Vector3.up, transform.position);
 
 		// Get the ray of where mouse is on the screen
-		Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray cameraRay = playerCamera.GetComponentInChildren<Camera>().ScreenPointToRay(Input.mousePosition);
 
 		float hitdistance = 0f;
 		// Test if the camera ray intersects the plane, and also give a

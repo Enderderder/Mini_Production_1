@@ -1,22 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameStartTeleport : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+    public Image fadeBlackImage;
+
+	void Start ()
+    {
+        fadeBlackImage.DOFade(1, 0);
+        fadeBlackImage.DOFade(0, 1);
 	}
 
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("ChrisTest");
+        StartCoroutine(GoToNextScene());
     } 
+
+    IEnumerator GoToNextScene()
+    {
+        fadeBlackImage.DOFade(1, 1);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("ChrisTest");
+    }
 }

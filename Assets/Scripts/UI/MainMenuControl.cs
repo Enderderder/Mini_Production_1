@@ -19,6 +19,10 @@ public class MainMenuControl : MonoBehaviour
 		MainMenu.SetActive(true);
 		ControlPanel.SetActive(false);
 		QuitConfirm.SetActive(false);
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+        }
 	}
 	void Update()
 	{
@@ -44,7 +48,7 @@ public class MainMenuControl : MonoBehaviour
 	/** UI Button Functions */
 	public void StartGame()
 	{
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Intro");
 	}
 	public void Controls()
 	{

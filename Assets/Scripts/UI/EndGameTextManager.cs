@@ -14,6 +14,10 @@ public class EndGameTextManager : MonoBehaviour {
 
     private void Start()
     {
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+        }
         StartCoroutine(StartText());
     }
 
@@ -38,6 +42,13 @@ public class EndGameTextManager : MonoBehaviour {
             overlay.DOFade(1, 2);
             yield return new WaitForSeconds(2);
         }
+
+        overlay.DOFade(0, 2);
+        textLabel.text = "The more you have, the worse it is!";
+        yield return new WaitForSeconds(3);
+        overlay.DOFade(1, 2);
+        yield return new WaitForSeconds(2);
+
         //Application.Quit();
         SceneManager.LoadScene("MainMenu");
     }

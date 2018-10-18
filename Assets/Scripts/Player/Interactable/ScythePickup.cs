@@ -4,45 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class DialogueTrigger : MonoBehaviour {
-
+public class ScythePickup : MonoBehaviour
+{
+    public Image blackFadeScreen;
+    public GameObject scythe;
     public float LetterPauseTime;
-    public string[] nameOrder;
     public string[] conversationOrder;
 
     private int currDialogue;
     private GameObject dialogueBox;
-    private Text nameText;
     private Text conversationText;
     private GameObject playerCam;
+    private GameObject player;
+    private GameObject playerScythe;
 
     private void Awake()
     {
-       
-    }
-
-    private void Start()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerCam = GameObject.FindGameObjectWithTag("MainCamera");
-
-        if (player)
-        {
-            dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
-            conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
-            nameText = dialogueBox.transform.Find("NameText").GetComponent<Text>();
-            dialogueBox.SetActive(false);
-        }
+        playerCam = GameObject.Find("PlayerCam");
+        blackFadeScreen.DOFade(0, 0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            dialogueBox = other.gameObject.GetComponent<Player>().dialogueBox;
-            conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
-            nameText = dialogueBox.transform.Find("NameText").GetComponent<Text>();
-            dialogueBox.SetActive(false);
             StartCoroutine(PopupDialogue(other.gameObject));
         }
     }
@@ -56,7 +41,7 @@ public class DialogueTrigger : MonoBehaviour {
 
         List<Transform> childrenTransforms = new List<Transform>();
 
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             childrenTransforms.Add(child);
         }
@@ -73,11 +58,6 @@ public class DialogueTrigger : MonoBehaviour {
 
             dialogueBox.SetActive(true);
 
-            if (nameOrder.Length > i)
-            {
-                nameText.text = nameOrder[i] + ":";
-            }
-
             conversationText.text = "";
             foreach (char item in conversationOrder[i])
             {
@@ -90,13 +70,23 @@ public class DialogueTrigger : MonoBehaviour {
             dialogueBox.SetActive(false);
         }
 
+        blackFadeScreen.DOFade(1, 1);
+
         if (transform.childCount > 0)
         {
-            playerCam.transform.DOMove(camPos, 1.0f, false);
-            playerCam.transform.DORotate(camRot, 1.0f);
-            yield return new WaitForSeconds(1);
+            playerCam.transform.DOMove(camPos, 0.0f, false);
+            playerCam.transform.DORotate(camRot, 0.0f);
             playerCam.GetComponent<PlayerCamera>().enabled = true;
         }
+        yield return new WaitForSeconds(1);
+        scythe.transform.DOMove(new Vector3(1000000, 1000000, 1000000), 1);
+        if (player != null)
+        {
+            playerScythe.SetActive(true);
+
+        }
+
+        blackFadeScreen.DOFade(0, 1);
 
         player.GetComponent<PlayerMoveTemp>().enabled = true;
         gameObject.SetActive(false);
@@ -104,17 +94,20 @@ public class DialogueTrigger : MonoBehaviour {
 
     private void Update()
     {
-        if (playerCam == null)
-        {
-            playerCam = GameObject.FindGameObjectWithTag("MainCamera");
-        }
-        
         if (dialogueBox == null)
         {
             dialogueBox = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().dialogueBox;
             conversationText = dialogueBox.transform.Find("ConversationText").GetComponent<Text>();
-            nameText = dialogueBox.transform.Find("NameText").GetComponent<Text>();
             dialogueBox.SetActive(false);
+        }
+
+        if (player == null)
+        {
+            if (player = GameObject.FindGameObjectWithTag("Player"))
+            {
+                playerScythe = player.transform.Find("Farmer/scythe skin").gameObject;
+                playerScythe.SetActive(false);
+            }
         }
     }
 }
